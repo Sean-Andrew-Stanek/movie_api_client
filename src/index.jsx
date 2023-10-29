@@ -1,23 +1,21 @@
 //src  ./Documents/GitHub/movie_api_client
 
-
+//Root
 import { createRoot } from 'react-dom/client';
 
-// Flag for bundle
+//SCSS file
 import "./index.scss";
 
+import { MainView } from './components/main-view/main-view'
+
 // Main component (TODO: add more)
-const MovieApplication = () => {
+const App = () => {
     return (
-        <div className="my-flix">
-            <div>Test Message</div>
-        </div>
+        <MainView />
     );
 };
 
-// Finds the root of your app
+// Finds the root and renders the Page
 const container = document.querySelector("#root");
 const root = createRoot(container);
-
-//Tells React to rende3r the app in the rood DOM element
-root.render(<MovieApplication />);
+root.render(<App />);

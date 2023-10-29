@@ -2943,46 +2943,38 @@ $parcel$ReactRefreshHelpers$98a3.prelude(module);
 
 try {
 //src  ./Documents/GitHub/movie_api_client
+//Root
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _client = require("react-dom/client");
-// Flag for bundle
+//SCSS file
 var _indexScss = require("./index.scss");
+var _mainView = require("./components/main-view/main-view");
 // Main component (TODO: add more)
-const MovieApplication = ()=>{
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "my-flix",
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            children: "Test Message"
-        }, void 0, false, {
-            fileName: "src/index.jsx",
-            lineNumber: 13,
-            columnNumber: 13
-        }, undefined)
-    }, void 0, false, {
+const App = ()=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
         fileName: "src/index.jsx",
-        lineNumber: 12,
+        lineNumber: 14,
         columnNumber: 9
     }, undefined);
 };
-_c = MovieApplication;
-// Finds the root of your app
+_c = App;
+// Finds the root and renders the Page
 const container = document.querySelector("#root");
 const root = (0, _client.createRoot)(container);
-//Tells React to rende3r the app in the rood DOM element
-root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(MovieApplication, {}, void 0, false, {
+root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
     fileName: "src/index.jsx",
-    lineNumber: 23,
+    lineNumber: 21,
     columnNumber: 13
 }, undefined));
 var _c;
-$RefreshReg$(_c, "MovieApplication");
+$RefreshReg$(_c, "App");
 
   $parcel$ReactRefreshHelpers$98a3.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./components/main-view/main-view":"4gflv"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27307,6 +27299,110 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"7422ead32dcc1e6b":"786KC"}]},["d8m58","1xC6H","d8Dch"], "d8Dch", "parcelRequire8cf1")
+},{"7422ead32dcc1e6b":"786KC"}],"4gflv":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$f7a6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$f7a6.prelude(module);
+
+try {
+//Temporary Data
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MainView", ()=>MainView);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _moviesJson = require("../../mock-data/movies.json");
+var _moviesJsonDefault = parcelHelpers.interopDefault(_moviesJson);
+var _movieCard = require("../movie-card/movie-card");
+var _movieView = require("../movie-view/movie-view");
+var _s = $RefreshSig$();
+const MainView = ()=>{
+    _s();
+    const [movies, setMovies] = (0, _react.useState)((0, _moviesJsonDefault.default));
+    const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
+    if (selectedMovie) return(//TODO: Setup and Connect BookView
+    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {}, void 0, false, {
+        fileName: "src/components/main-view/main-view.jsx",
+        lineNumber: 17,
+        columnNumber: 13
+    }, undefined));
+    if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: " There are no movies in the array!"
+    }, void 0, false, {
+        fileName: "src/components/main-view/main-view.jsx",
+        lineNumber: 22,
+        columnNumber: 16
+    }, undefined);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: "TODO: Insert MovieCards"
+    }, void 0, false, {
+        fileName: "src/components/main-view/main-view.jsx",
+        lineNumber: 26,
+        columnNumber: 9
+    }, undefined);
+};
+_s(MainView, "8VR7tgCBtFhOxY85l4ev0/nGMfg=");
+_c = MainView;
+var _c;
+$RefreshReg$(_c, "MainView");
+
+  $parcel$ReactRefreshHelpers$f7a6.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../../mock-data/movies.json":"cQXUu","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"cQXUu":[function(require,module,exports) {
+module.exports = JSON.parse('[{"title":"Commando","description":"Retired Special Forces soldier John Matrix (Arnold Schwarzenegger) lives with daughter Jenny (Alyssa Milano) in isolation, but his privacy is disturbed by former commander Franklin Kirby (James Olson), who warns him that his fellow soldiers are getting killed one by one. After Kirby leaves, Jenny is kidnapped by former Latin American dictator Arius (Dan Hedaya), who wants Matrix to restore him to power. Instead, Matrix sets out to take down the rogue leader and rescue his daughter.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"Mark L. Lester","bio":"Mark L. Lester is an American film director, screenwriter, and producer. (src: https://en.wikipedia.org/wiki/Mark_L._Lester)","birth":"1946-11-26"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/d/d9/Commandoposter.jpg/220px-Commandoposter.jpg","featured":false},{"title":"Showdown in Little Tokyo","description":"An American with a Japanese upbringing, Chris Kenner (Dolph Lundgren) is a police officer assigned to the Little Tokyo section of Los Angeles. Kenner is partnered with Johnny Murata (Brandon Lee), a Japanese-American who isn\'\'t in touch with his roots. Despite their differences, both men excel at martial arts, and utilize their formidable skills when they go up against Yoshida (Cary-Hiroyuki Tagawa), a vicious yakuza drug dealer with ties to Kenner\'\'s past.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"Mark L. Lester","bio":"Mark L. Lester is an American film director, screenwriter, and producer. (src: https://en.wikipedia.org/wiki/Mark_L._Lester)","birth":"1946-11-26"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/2/2c/Showdown_in_Little_Tokyo_poster.jpg/220px-Showdown_in_Little_Tokyo_poster.jpg","featured":false},{"title":"Last Action Hero","description":"Following the death of his father, young Danny Madigan (Austin O\'\'Brien) takes comfort in watching action movies featuring the indestructible Los Angeles cop Jack Slater (Arnold Schwarzenegger). After being given a magic ticket by theater manager Nick (Robert Prosky), Danny is sucked into the screen and bonds with Slater. When evil fictional villain Benedict (Charles Dance) gets his hands on the ticket and enters the real world, Danny and Jack must follow and stop him.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"John McTiernan","bio":"John Campbell McTiernan Jr. is an American filmmaker. (src: https://en.wikipedia.org/wiki/John_McTiernan)","birth":"1951-01-08"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/0/0e/Last_action_hero_ver2.jpg/220px-Last_action_hero_ver2.jpg","featured":false},{"title":"Predator","description":"Dutch (Arnold Schwarzenegger), a soldier of fortune, is hired by the U.S. government to secretly rescue a group of politicians trapped in Guatemala. But when Dutch and his team, which includes weapons expert Blain (Jesse Ventura) and CIA agent George (Carl Weathers), land in Central America, something is gravely wrong. After finding a string of dead bodies, the crew discovers they are being hunted by a brutal creature with superhuman strength and the ability to disappear into its surroundings.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"John McTiernan","bio":"John Campbell McTiernan Jr. is an American filmmaker. (src: https://en.wikipedia.org/wiki/John_McTiernan)","birth":"1951-01-08"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/9/95/Predator_Movie.jpg/220px-Predator_Movie.jpg","featured":false},{"title":"The 13th Warrior","description":"A Muslim ambassador exiled from his homeland, Ahmad ibn Fadlan (Antonio Banderas) finds himself in the company of Vikings. While the behavior of the Norsemen initially offends ibn Fadlan, the more cultured outsider grows to respect the tough, if uncouth, warriors. During their travels together, ibn Fadlan and the Vikings get word of an evil presence closing in, and they must fight the frightening and formidable force, which was previously thought to exist only in legend.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"John McTiernan","bio":"John Campbell McTiernan Jr. is an American filmmaker. (src: https://en.wikipedia.org/wiki/John_McTiernan)","birth":"1951-01-08"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/13thwarriorposter.jpg/220px-13thwarriorposter.jpg","featured":false},{"title":"Die Hard","description":"New York City policeman John McClane (Bruce Willis) is visiting his estranged wife (Bonnie Bedelia) and two daughters on Christmas Eve. He joins her at a holiday party in the headquarters of the Japanese-owned business she works for. But the festivities are interrupted by a group of terrorists who take over the exclusive high-rise, and everyone in it. Very soon McClane realizes that there\'\'s no one to save the hostages -- but him.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"John McTiernan","bio":"John Campbell McTiernan Jr. is an American filmmaker. (src: https://en.wikipedia.org/wiki/John_McTiernan)","birth":"1951-01-08"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Die_Hard_%281988_film%29_poster.jpg/220px-Die_Hard_%281988_film%29_poster.jpg","featured":false},{"title":"The Hunt for Red October","description":"Based on the popular Tom Clancy novel, this suspenseful movie tracks Soviet submarine captain Marko Ramius (Sean Connery) as he abandons his orders and heads for the east coast of the United States. Equipped with innovative stealth technology, Ramius\'\' submarine, \\"Red October,\\" is virtually invisible. However, when an American sub briefly detects the Russians\' presence, CIA agent Jack Ryan (Alec Baldwin) sets out to determine Ramius\'\' motives, fearing he may launch an attack on the U.S.","genre":{"name":"Adventure","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"John McTiernan","bio":"John Campbell McTiernan Jr. is an American filmmaker. (src: https://en.wikipedia.org/wiki/John_McTiernan)","birth":"1951-01-08"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/3/36/The_Hunt_for_Red_October_movie_poster.png/220px-The_Hunt_for_Red_October_movie_poster.png","featured":false},{"title":"Forrest Gump","description":"Slow-witted Forrest Gump (Tom Hanks) has never thought of himself as disadvantaged, and thanks to his supportive mother (Sally Field), he leads anything but a restricted life. Whether dominating on the gridiron as a college football star, fighting in Vietnam or captaining a shrimp boat, Forrest inspires people with his childlike optimism. But one person Forrest cares about most may be the most difficult to save -- his childhood love, the sweet but troubled Jenny (Robin Wright).","genre":{"name":"Drama","description":"Focused on emotions and defined by conflict, often looking to reality rather than sensationalism.(src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"Robert Zemeckis","bio":"Robert Lee Zemeckis is an American filmmaker. (src: https://en.wikipedia.org/wiki/Robert_Zemeckis)","birth":"1952-05-14"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/6/67/Forrest_Gump_poster.jpg/220px-Forrest_Gump_poster.jpg","featured":false},{"title":"Who Framed Roger Rabbit","description":"Down-on-his-luck private eye Eddie Valiant (Bob Hoskins) gets hired by cartoon producer R.K. Maroon (Alan Tilvern) to investigate an adultery scandal involving Jessica Rabbit (Kathleen Turner), the sultry wife of Maroon\'\'s biggest star, Roger Rabbit (Charles Fleischer). But when Marvin Acme (Stubby Kaye), Jessica\'\'s alleged paramour and the owner of Toontown, is found murdered, the villainous Judge Doom (Christopher Lloyd) vows to catch and destroy Roger.","genre":{"name":"Drama","description":"Focused on emotions and defined by conflict, often looking to reality rather than sensationalism.(src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"Robert Zemeckis","bio":"Robert Lee Zemeckis is an American filmmaker. (src: https://en.wikipedia.org/wiki/Robert_Zemeckis)","birth":"1952-05-14"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/3/32/Movie_poster_who_framed_roger_rabbit.jpg/220px-Movie_poster_who_framed_roger_rabbit.jpg","featured":false},{"title":"Romancing the Stone","description":"A dowdy romantic-adventure writer is hurled into a real-life adventure in the Colombian jungle in order to save her sister, who will be killed if a treasure map is not delivered to her captors. She is helped out by a brash mercenary, and together they search for the priceless gem located in the map.","genre":{"name":"Adventure","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"Robert Zemeckis","bio":"Robert Lee Zemeckis is an American filmmaker. (src: https://en.wikipedia.org/wiki/Robert_Zemeckis)","birth":"1952-05-14"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Romancing_the_stone.jpg/220px-Romancing_the_stone.jpg","featured":false}]');
+
+},{}],"bwuIu":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MovieCard", ()=>MovieCard);
+const MovieCard = ()=>{};
+_c = MovieCard;
+var _c;
+$RefreshReg$(_c, "MovieCard");
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"ggaUx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MovieView", ()=>MovieView);
+const MovieView = ()=>{};
+_c = MovieView;
+var _c;
+$RefreshReg$(_c, "MovieView");
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["d8m58","1xC6H","d8Dch"], "d8Dch", "parcelRequire8cf1")
 
 //# sourceMappingURL=index.b4b6dfad.js.map
