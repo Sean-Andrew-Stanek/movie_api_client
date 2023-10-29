@@ -1,5 +1,6 @@
 [
     {
+        "_id": 1,
         "title": "Commando",
         "description": "Retired Special Forces soldier John Matrix (Arnold Schwarzenegger) lives with daughter Jenny (Alyssa Milano) in isolation, but his privacy is disturbed by former commander Franklin Kirby (James Olson), who warns him that his fellow soldiers are getting killed one by one. After Kirby leaves, Jenny is kidnapped by former Latin American dictator Arius (Dan Hedaya), who wants Matrix to restore him to power. Instead, Matrix sets out to take down the rogue leader and rescue his daughter.",
         "genre":{
@@ -15,6 +16,7 @@
         "featured": false
     },
     {
+        "_id": 2,
         "title": "Showdown in Little Tokyo",
         "description": "An American with a Japanese upbringing, Chris Kenner (Dolph Lundgren) is a police officer assigned to the Little Tokyo section of Los Angeles. Kenner is partnered with Johnny Murata (Brandon Lee), a Japanese-American who isn''t in touch with his roots. Despite their differences, both men excel at martial arts, and utilize their formidable skills when they go up against Yoshida (Cary-Hiroyuki Tagawa), a vicious yakuza drug dealer with ties to Kenner''s past.",
         "genre":{
@@ -30,6 +32,7 @@
         "featured": false
     },
     {
+        "_id": 3,
         "title": "Last Action Hero",
         "description": "Following the death of his father, young Danny Madigan (Austin O''Brien) takes comfort in watching action movies featuring the indestructible Los Angeles cop Jack Slater (Arnold Schwarzenegger). After being given a magic ticket by theater manager Nick (Robert Prosky), Danny is sucked into the screen and bonds with Slater. When evil fictional villain Benedict (Charles Dance) gets his hands on the ticket and enters the real world, Danny and Jack must follow and stop him.",
         "genre":{
@@ -45,6 +48,7 @@
         "featured": false
     },
     {
+        "_id": 4,
         "title": "Predator",
         "description": "Dutch (Arnold Schwarzenegger), a soldier of fortune, is hired by the U.S. government to secretly rescue a group of politicians trapped in Guatemala. But when Dutch and his team, which includes weapons expert Blain (Jesse Ventura) and CIA agent George (Carl Weathers), land in Central America, something is gravely wrong. After finding a string of dead bodies, the crew discovers they are being hunted by a brutal creature with superhuman strength and the ability to disappear into its surroundings.",
         "genre":{
@@ -60,6 +64,7 @@
         "featured": false
     },
     {
+        "_id": 5,
         "title": "The 13th Warrior",
         "description": "A Muslim ambassador exiled from his homeland, Ahmad ibn Fadlan (Antonio Banderas) finds himself in the company of Vikings. While the behavior of the Norsemen initially offends ibn Fadlan, the more cultured outsider grows to respect the tough, if uncouth, warriors. During their travels together, ibn Fadlan and the Vikings get word of an evil presence closing in, and they must fight the frightening and formidable force, which was previously thought to exist only in legend.",
         "genre":{
@@ -75,6 +80,7 @@
         "featured": false
     },
     {
+        "_id": 6,
         "title": "Die Hard",
         "description": "New York City policeman John McClane (Bruce Willis) is visiting his estranged wife (Bonnie Bedelia) and two daughters on Christmas Eve. He joins her at a holiday party in the headquarters of the Japanese-owned business she works for. But the festivities are interrupted by a group of terrorists who take over the exclusive high-rise, and everyone in it. Very soon McClane realizes that there''s no one to save the hostages -- but him.",
         "genre":{
@@ -90,6 +96,7 @@
         "featured": false
     },
     {
+        "_id": 7,
         "title": "The Hunt for Red October",
         "description": "Based on the popular Tom Clancy novel, this suspenseful movie tracks Soviet submarine captain Marko Ramius (Sean Connery) as he abandons his orders and heads for the east coast of the United States. Equipped with innovative stealth technology, Ramius'' submarine, \"Red October,\" is virtually invisible. However, when an American sub briefly detects the Russians' presence, CIA agent Jack Ryan (Alec Baldwin) sets out to determine Ramius'' motives, fearing he may launch an attack on the U.S.",
         "genre":{
@@ -105,6 +112,7 @@
         "featured": false
     },
     {
+        "_id": 8,
         "title": "Forrest Gump",
         "description": "Slow-witted Forrest Gump (Tom Hanks) has never thought of himself as disadvantaged, and thanks to his supportive mother (Sally Field), he leads anything but a restricted life. Whether dominating on the gridiron as a college football star, fighting in Vietnam or captaining a shrimp boat, Forrest inspires people with his childlike optimism. But one person Forrest cares about most may be the most difficult to save -- his childhood love, the sweet but troubled Jenny (Robin Wright).",
         "genre":{
@@ -120,6 +128,7 @@
         "featured": false
     },
     {
+        "_id": 9,
         "title": "Who Framed Roger Rabbit",
         "description": "Down-on-his-luck private eye Eddie Valiant (Bob Hoskins) gets hired by cartoon producer R.K. Maroon (Alan Tilvern) to investigate an adultery scandal involving Jessica Rabbit (Kathleen Turner), the sultry wife of Maroon''s biggest star, Roger Rabbit (Charles Fleischer). But when Marvin Acme (Stubby Kaye), Jessica''s alleged paramour and the owner of Toontown, is found murdered, the villainous Judge Doom (Christopher Lloyd) vows to catch and destroy Roger.",
         "genre":{
@@ -135,6 +144,7 @@
         "featured": false
     },
     {
+        "_id": 10,
         "title": "Romancing the Stone",
         "description": "A dowdy romantic-adventure writer is hurled into a real-life adventure in the Colombian jungle in order to save her sister, who will be killed if a treasure map is not delivered to her captors. She is helped out by a brash mercenary, and together they search for the priceless gem located in the map.",
         "genre":{
