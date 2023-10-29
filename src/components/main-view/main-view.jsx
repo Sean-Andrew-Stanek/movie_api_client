@@ -13,9 +13,13 @@ export const MainView = () => {
 
     if(selectedMovie){
         return(
-            //TODO: Setup and Connect BookView
-            <MovieView />
-        )
+            <MovieView 
+                movie={selectedMovie} 
+                onBackClick={() => {
+                    setSelectedMovie(null);
+                }}
+            />
+        );
     }
 
     if(movies.length === 0) {
@@ -24,7 +28,16 @@ export const MainView = () => {
 
     return (
         <div>
-            TODO: Insert MovieCards
+            {movies.map((movie) => {
+                return (
+                    <MovieCard 
+                        movie={movie}
+                        onMovieClick={(newSelectedMovie) =>{
+                            setSelectedMovie(newSelectedMovie);
+                        }}
+                    />
+                );
+            })}
         </div>
     );
 };

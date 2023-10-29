@@ -1,8 +1,9 @@
-export const MovieCard = (movie, onMovieClick) => {
+export const MovieCard = ({movie, onMovieClick}) => {
+
     return (
         <div
             onClick={() => {
-                onBookClick(movie);
+                onMovieClick(movie);
             }}
             key={movie._id}
         >
