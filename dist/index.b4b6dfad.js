@@ -27339,7 +27339,7 @@ const MainView = ()=>{
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
     //Render the selected movie
     if (selectedMovie) {
-        let similarMovies = movies.filter((movie)=>movie.genre == selectedMovie.genre);
+        let similarMovies = movies.filter((movie)=>movie.genre == selectedMovie.genre && movie.title != selectedMovie.title);
         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
@@ -27456,6 +27456,7 @@ MovieCard.propTypes = {
     movie: (0, _propTypesDefault.default).shape({
         _id: (0, _propTypesDefault.default).string.isRequired,
         title: (0, _propTypesDefault.default).string.isRequired,
+        genre: (0, _propTypesDefault.default).string,
         director: (0, _propTypesDefault.default).string,
         image: (0, _propTypesDefault.default).string
     }).isRequired,
