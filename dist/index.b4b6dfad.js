@@ -27319,7 +27319,22 @@ var _movieView = require("../movie-view/movie-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    const [movies, setMovies] = (0, _react.useState)((0, _moviesJsonDefault.default));
+    const [movies, setMovies] = (0, _react.useState)([]);
+    (0, _react.useEffect)(()=>{
+        fetch("https://my-movie-db-1195f41cc20f.herokuapp.com/movies").then((response)=>response.json()).then((data)=>{
+            const moviesFromAPI = data.map((movie)=>{
+                return {
+                    _id: movie._id,
+                    title: movie.title,
+                    director: movie.director.name,
+                    image: movie.image
+                };
+            });
+            setMovies(moviesFromAPI);
+        }).catch((err)=>{
+            console.log(err);
+        });
+    }, []);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
     if (selectedMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
         movie: selectedMovie,
@@ -27328,14 +27343,14 @@ const MainView = ()=>{
         }
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 16,
+        lineNumber: 36,
         columnNumber: 13
     }, undefined);
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: " There are no movies in the array!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 26,
+        lineNumber: 46,
         columnNumber: 16
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27347,17 +27362,17 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 33,
+                lineNumber: 53,
                 columnNumber: 21
             }, undefined);
         })
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 30,
+        lineNumber: 50,
         columnNumber: 9
     }, undefined);
 };
-_s(MainView, "8VR7tgCBtFhOxY85l4ev0/nGMfg=");
+_s(MainView, "llzgrUkvR/+OoCNfiqlA1H2LLFI=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -27382,14 +27397,16 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "MovieCard", ()=>MovieCard);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 const MovieCard = ({ movie, onMovieClick })=>{
+    //const movieID = movie._id;
+    const movieID = "hi";
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         onClick: ()=>{
             onMovieClick(movie);
         },
         children: movie.title
-    }, movie._id, false, {
+    }, movieID, false, {
         fileName: "src/components/movie-card/movie-card.jsx",
-        lineNumber: 4,
+        lineNumber: 6,
         columnNumber: 9
     }, undefined);
 };
@@ -27463,7 +27480,7 @@ const MovieView = ({ movie, onBackClick })=>{
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: [
                     " Director: ",
-                    movie.director.name,
+                    movie.director,
                     " "
                 ]
             }, void 0, true, {
