@@ -1,9 +1,9 @@
+import PropTypes from "prop-types";
+
 export const MovieView = ({movie, onBackClick}) => {
     
     //ARIA tags
     var altText = `Picture of ${movie.title}`;
-    
-    console.log(movie);
 
     return (
         <div key={movie._id} onClick={onBackClick}>
@@ -13,4 +13,15 @@ export const MovieView = ({movie, onBackClick}) => {
             <button>Return</button>
         </div>
     );
+};
+
+MovieView.propTypes = {
+    movie: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        director: PropTypes.string.isRequired,
+        genre: PropTypes.string,
+        image: PropTypes.string.isRequired
+    }).isRequired,
+    onMovieClick: PropTypes.func.isRequired
 };
