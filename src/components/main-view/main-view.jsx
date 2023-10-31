@@ -4,13 +4,28 @@ import Movies from '../../mock-data/movies.json';
 
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { LoginView } from '../login-view/login-view';
 
 export const MainView = () => {
 
-    const [movies, setMovies] = useState([]);
+    const appWebsite = "https://my-movie-db-1195f41cc20f.herokuapp.com"
 
+    //State Variables
+    const [movies, setMovies] = useState([]);
+    const [selectedMovie, setSelectedMovie] = useState(null);
+    const[user, setUser] = useState(null);
+    const[token, setToken] = useState(null);
+
+    //retrieve all movie data from the db
     useEffect(() => {
-        fetch("https://my-movie-db-1195f41cc20f.herokuapp.com/movies")
+
+        if(!token) {
+            return;
+        }
+
+        fetch(appWebsite + "/movies", {
+            headers: {Authorization: `Bearer ${token}`}
+        })
         .then((response) => response.json())
         .then((data) => {
             const moviesFromAPI = data.map((movie) =>{
@@ -28,9 +43,20 @@ export const MainView = () => {
             console.log(err);
 
         });
-    }, []);
+    }, [token]);
 
-    const [selectedMovie, setSelectedMovie] = useState(null);
+    //If no user credentials, prompt user
+    if(!user) {
+        return(
+            <LoginView 
+                onLoggedIn = {(user, token) => {
+                    setUser(user);
+                    setToken(token)
+                }} 
+                appWebsite = {appWebsite}
+            />
+        );
+    }
 
     //Render the selected movie
     if(selectedMovie){
@@ -45,18 +71,18 @@ export const MainView = () => {
                 />
                 <hr/>
                 <h2>Similar Movies</h2>
-        <div>
-            {similarMovies.map((movie) => {
-                return (
-                    <MovieCard 
-                        movie={movie}
-                        onMovieClick={(newSelectedMovie) =>{
-                            setSelectedMovie(newSelectedMovie);
-                        }}
-                    />
-                );
-            })}
-        </div>
+                <div>
+                    {similarMovies.map((movie) => {
+                        return (
+                            <MovieCard 
+                                movie={movie}
+                                onMovieClick={(newSelectedMovie) =>{
+                                    setSelectedMovie(newSelectedMovie);
+                                }}
+                            />
+                        );
+                    })}
+                </div>
             </>
         );
     }
@@ -66,18 +92,24 @@ export const MainView = () => {
     }
 
     return (
-        <div>
-            {movies.map((movie) => {
-                return (
-                    <MovieCard 
-                        movie={movie}
-                        onMovieClick={(newSelectedMovie) =>{
-                            setSelectedMovie(newSelectedMovie);
-                        }}
-                    />
-                );
-            })}
-        </div>
+        <>
+            <div>
+                {movies.map((movie) => {
+                    return (
+                        <MovieCard 
+                            movie={movie}
+                            onMovieClick={(newSelectedMovie) =>{
+                                setSelectedMovie(newSelectedMovie);
+                            }}
+                        />
+                    );
+                })}
+            </div>
+            <br />
+            <button onClick={() => { setUser(null); setToken(null);}}>
+                Logout
+            </button>
+        </>
     );
 };
 
