@@ -11,10 +11,13 @@ export const MainView = () => {
     const appWebsite = "https://my-movie-db-1195f41cc20f.herokuapp.com"
 
     //State Variables
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedToken = localStorage.getItem("token");
+    const[user, setUser] = useState(storedUser ? storedUser : null);
+    const[token, setToken] = useState(storedToken ? storedToken : null);
     const [movies, setMovies] = useState([]);
-    const [selectedMovie, setSelectedMovie] = useState(null);
-    const[user, setUser] = useState(null);
-    const[token, setToken] = useState(null);
+    const [selectedMovie, setSelectedMovie] = useState(null);  
+    const[loadingData, setLoadingData] = useState(true);
 
     //retrieve all movie data from the db
     useEffect(() => {
@@ -38,6 +41,7 @@ export const MainView = () => {
                 }
             })
             setMovies(moviesFromAPI);
+            setLoadingData(false);
         })
         .catch(err => {
             console.log(err);
@@ -87,6 +91,10 @@ export const MainView = () => {
         );
     }
 
+    if(loadingData){
+        return <div> Loading data </div>;
+    }
+
     if(movies.length === 0) {
         return <div> There are no movies in the array!</div>;
     }
@@ -106,7 +114,7 @@ export const MainView = () => {
                 })}
             </div>
             <br />
-            <button onClick={() => { setUser(null); setToken(null);}}>
+            <button onClick={() => { setUser(null); setToken(null); localStorage.clear();}}>
                 Logout
             </button>
         </>
