@@ -1,12 +1,9 @@
 import PropTypes from "prop-types";
 
 export const MovieCard = ({movie, onMovieClick}) => {
-    //const movieID = movie._id;
-    const movieID ="hi";
-    
     return (
         <div
-            key={movieID}
+            key={movie._id}
             onClick={() => {
                 onMovieClick(movie);
             }}

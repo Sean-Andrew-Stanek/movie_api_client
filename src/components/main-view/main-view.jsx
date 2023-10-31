@@ -5,6 +5,7 @@ import Movies from '../../mock-data/movies.json';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
+import { SignupView } from '../signup-view/signup-view';
 
 export const MainView = () => {
 
@@ -49,16 +50,22 @@ export const MainView = () => {
         });
     }, [token]);
 
-    //If no user credentials, prompt user
+    //No User - Login / Signup
     if(!user) {
         return(
-            <LoginView 
-                onLoggedIn = {(user, token) => {
-                    setUser(user);
-                    setToken(token)
-                }} 
-                appWebsite = {appWebsite}
-            />
+            <>
+                <LoginView 
+                    onLoggedIn = {(user, token) => {
+                        setUser(user);
+                        setToken(token)
+                    }} 
+                    appWebsite = {appWebsite}
+                />
+                or
+                <SignupView
+                    appWebsite = {appWebsite}
+                />
+            </>
         );
     }
 
@@ -91,14 +98,17 @@ export const MainView = () => {
         );
     }
 
+    //Loading data
     if(loadingData){
         return <div> Loading data </div>;
     }
 
+    //No Data Found
     if(movies.length === 0) {
         return <div> There are no movies in the array!</div>;
     }
 
+    //Display data
     return (
         <>
             <div>

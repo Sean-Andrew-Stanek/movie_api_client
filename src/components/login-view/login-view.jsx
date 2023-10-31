@@ -1,3 +1,8 @@
+//////////
+//
+//  Login Window
+//
+//////////
 import React from "react";
 import {useState} from "react";
 
@@ -18,7 +23,6 @@ export const LoginView = ( {onLoggedIn, appWebsite}) => {
         }
 
         console.log(JSON.stringify(data));
-
 
         fetch(appWebsite + '/login',  {
             method: "POST",
