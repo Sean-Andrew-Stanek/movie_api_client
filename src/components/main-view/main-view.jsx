@@ -1,11 +1,15 @@
 //Temporary Data
 import { useState, useEffect } from 'react';
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
 import Movies from '../../mock-data/movies.json';
 
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
+
 
 export const MainView = () => {
 
@@ -50,84 +54,81 @@ export const MainView = () => {
         });
     }, [token]);
 
-    //No User - Login / Signup
-    if(!user) {
-        return(
-            <>
-                <LoginView 
-                    onLoggedIn = {(user, token) => {
-                        setUser(user);
-                        setToken(token)
-                    }} 
-                    appWebsite = {appWebsite}
-                />
-                or
-                <SignupView
-                    appWebsite = {appWebsite}
-                />
-            </>
-        );
-    }
-
-    //Render the selected movie
-    if(selectedMovie){
-        let similarMovies = movies.filter((movie) => (movie.genre == selectedMovie.genre && movie.title != selectedMovie.title));
-        return(
-            <>
-                <MovieView 
-                    movie={selectedMovie} 
-                    onBackClick={() => {
-                        setSelectedMovie(null);
-                    }}
-                />
-                <hr/>
-                <h2>Similar Movies</h2>
-                <div>
-                    {similarMovies.map((movie) => {
-                        return (
-                            <MovieCard 
-                                movie={movie}
-                                onMovieClick={(newSelectedMovie) =>{
-                                    setSelectedMovie(newSelectedMovie);
+    return(
+        <Row className="justify-content-md-center mainRow"> {
+            !user ? (
+                <Col md={5}>
+                    <LoginView 
+                        onLoggedIn = {(user, token) => {
+                            setUser(user);
+                            setToken(token)
+                        }} 
+                        appWebsite = {appWebsite}
+                    />
+                    <div style={{fontSize:30, textAlign:'center' }}>or</div>
+                    
+                    <SignupView
+                        appWebsite = {appWebsite}
+                    />
+                </Col>
+            ): 
+            selectedMovie ? (
+                <>
+                    <Row className="justify-content-md-center mainRow">
+                        <Col md={8}>
+                            <MovieView 
+                                movie={selectedMovie} 
+                                onBackClick={() => {
+                                    setSelectedMovie(null);
                                 }}
                             />
-                        );
-                    })}
-                </div>
-            </>
-        );
-    }
-
-    //Loading data
-    if(loadingData){
-        return <div> Loading data </div>;
-    }
-
-    //No Data Found
-    if(movies.length === 0) {
-        return <div> There are no movies in the array!</div>;
-    }
-
-    //Display data
-    return (
-        <>
-            <div>
-                {movies.map((movie) => {
-                    return (
-                        <MovieCard 
-                            movie={movie}
-                            onMovieClick={(newSelectedMovie) =>{
-                                setSelectedMovie(newSelectedMovie);
-                            }}
-                        />
-                    );
-                })}
-            </div>
-            <br />
-            <button onClick={() => { setUser(null); setToken(null); localStorage.clear();}}>
-                Logout
-            </button>
-        </>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <h2>Similar Movies</h2>
+                    </Row>
+                    <Row>
+                        {movies.filter((movie) => (movie.genre == selectedMovie.genre && movie.title != selectedMovie.title)).map((movie) => {
+                            return (
+                                <Col className="mb-1" key={movie._id} md={3}>
+                                    <MovieCard 
+                                        movie={movie}
+                                        onMovieClick={(newSelectedMovie) =>{
+                                            setSelectedMovie(newSelectedMovie);
+                                        }}
+                                    />
+                                </Col>
+                            );
+                        })}
+                    </Row>
+                </>
+            ):
+            loadingData ? (
+                <div> Loading data </div>
+            ):
+            movies.length === 0 ? (
+                <div> There are no movies in the array!</div>
+            ):(
+                <>
+                    {movies.map((movie) => {
+                        return (
+                            <Col className="mb-5" key={movie._id} md={3}>
+                                <MovieCard 
+                                    movie={movie}
+                                    onMovieClick={(newSelectedMovie) =>{
+                                        setSelectedMovie(newSelectedMovie);
+                                    }}
+                                />
+                            </Col>
+                        )
+                    })}                    
+                    <br />
+                    <button onClick={() => { setUser(null); setToken(null); localStorage.clear();}}>
+                        Logout
+                    </button>
+                </>
+            )
+        } </Row>
     );
 };
 
