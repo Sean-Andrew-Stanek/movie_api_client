@@ -27316,12 +27316,28 @@ var _moviesJson = require("../../mock-data/movies.json");
 var _moviesJsonDefault = parcelHelpers.interopDefault(_moviesJson);
 var _movieCard = require("../movie-card/movie-card");
 var _movieView = require("../movie-view/movie-view");
+var _loginView = require("../login-view/login-view");
+var _signupView = require("../signup-view/signup-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
+    const appWebsite = "https://my-movie-db-1195f41cc20f.herokuapp.com";
+    //State Variables
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedToken = localStorage.getItem("token");
+    const [user, setUser] = (0, _react.useState)(storedUser ? storedUser : null);
+    const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
     const [movies, setMovies] = (0, _react.useState)([]);
+    const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
+    const [loadingData, setLoadingData] = (0, _react.useState)(true);
+    //retrieve all movie data from the db
     (0, _react.useEffect)(()=>{
-        fetch("https://my-movie-db-1195f41cc20f.herokuapp.com/movies").then((response)=>response.json()).then((data)=>{
+        if (!token) return;
+        fetch(appWebsite + "/movies", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>response.json()).then((data)=>{
             const moviesFromAPI = data.map((movie)=>{
                 return {
                     _id: movie._id,
@@ -27332,11 +27348,37 @@ const MainView = ()=>{
                 };
             });
             setMovies(moviesFromAPI);
+            setLoadingData(false);
         }).catch((err)=>{
             console.log(err);
         });
-    }, []);
-    const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
+    }, [
+        token
+    ]);
+    //No User - Login / Signup
+    if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
+                onLoggedIn: (user, token)=>{
+                    setUser(user);
+                    setToken(token);
+                },
+                appWebsite: appWebsite
+            }, void 0, false, {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 57,
+                columnNumber: 17
+            }, undefined),
+            "or",
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {
+                appWebsite: appWebsite
+            }, void 0, false, {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 65,
+                columnNumber: 17
+            }, undefined)
+        ]
+    }, void 0, true);
     //Render the selected movie
     if (selectedMovie) {
         let similarMovies = movies.filter((movie)=>movie.genre == selectedMovie.genre && movie.title != selectedMovie.title);
@@ -27349,19 +27391,19 @@ const MainView = ()=>{
                     }
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 40,
+                    lineNumber: 77,
                     columnNumber: 17
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 46,
+                    lineNumber: 83,
                     columnNumber: 17
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                     children: "Similar Movies"
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 47,
+                    lineNumber: 84,
                     columnNumber: 17
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27373,45 +27415,76 @@ const MainView = ()=>{
                             }
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 51,
-                            columnNumber: 21
+                            lineNumber: 88,
+                            columnNumber: 29
                         }, undefined);
                     })
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 48,
-                    columnNumber: 9
+                    lineNumber: 85,
+                    columnNumber: 17
                 }, undefined)
             ]
         }, void 0, true);
     }
+    //Loading data
+    if (loadingData) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: " Loading data "
+    }, void 0, false, {
+        fileName: "src/components/main-view/main-view.jsx",
+        lineNumber: 103,
+        columnNumber: 16
+    }, undefined);
+    //No Data Found
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: " There are no movies in the array!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 65,
+        lineNumber: 108,
         columnNumber: 16
     }, undefined);
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: movies.map((movie)=>{
-            return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                movie: movie,
-                onMovieClick: (newSelectedMovie)=>{
-                    setSelectedMovie(newSelectedMovie);
-                }
+    //Display data
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: movies.map((movie)=>{
+                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                        movie: movie,
+                        onMovieClick: (newSelectedMovie)=>{
+                            setSelectedMovie(newSelectedMovie);
+                        }
+                    }, void 0, false, {
+                        fileName: "src/components/main-view/main-view.jsx",
+                        lineNumber: 117,
+                        columnNumber: 25
+                    }, undefined);
+                })
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 72,
-                columnNumber: 21
-            }, undefined);
-        })
-    }, void 0, false, {
-        fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 69,
-        columnNumber: 9
-    }, undefined);
+                lineNumber: 114,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 126,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                onClick: ()=>{
+                    setUser(null);
+                    setToken(null);
+                    localStorage.clear();
+                },
+                children: "Logout"
+            }, void 0, false, {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 127,
+                columnNumber: 13
+            }, undefined)
+        ]
+    }, void 0, true);
 };
-_s(MainView, "llzgrUkvR/+OoCNfiqlA1H2LLFI=");
+_s(MainView, "P42ECqO8xzwYc+C69a+tkKHrIrg=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -27421,7 +27494,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../../mock-data/movies.json":"cQXUu","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"cQXUu":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../../mock-data/movies.json":"cQXUu","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN"}],"cQXUu":[function(require,module,exports) {
 module.exports = JSON.parse('[{"_id":1,"title":"Commando","description":"Retired Special Forces soldier John Matrix (Arnold Schwarzenegger) lives with daughter Jenny (Alyssa Milano) in isolation, but his privacy is disturbed by former commander Franklin Kirby (James Olson), who warns him that his fellow soldiers are getting killed one by one. After Kirby leaves, Jenny is kidnapped by former Latin American dictator Arius (Dan Hedaya), who wants Matrix to restore him to power. Instead, Matrix sets out to take down the rogue leader and rescue his daughter.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"Mark L. Lester","bio":"Mark L. Lester is an American film director, screenwriter, and producer. (src: https://en.wikipedia.org/wiki/Mark_L._Lester)","birth":"1946-11-26"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/d/d9/Commandoposter.jpg/220px-Commandoposter.jpg","featured":false},{"_id":2,"title":"Showdown in Little Tokyo","description":"An American with a Japanese upbringing, Chris Kenner (Dolph Lundgren) is a police officer assigned to the Little Tokyo section of Los Angeles. Kenner is partnered with Johnny Murata (Brandon Lee), a Japanese-American who isn\'\'t in touch with his roots. Despite their differences, both men excel at martial arts, and utilize their formidable skills when they go up against Yoshida (Cary-Hiroyuki Tagawa), a vicious yakuza drug dealer with ties to Kenner\'\'s past.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"Mark L. Lester","bio":"Mark L. Lester is an American film director, screenwriter, and producer. (src: https://en.wikipedia.org/wiki/Mark_L._Lester)","birth":"1946-11-26"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/2/2c/Showdown_in_Little_Tokyo_poster.jpg/220px-Showdown_in_Little_Tokyo_poster.jpg","featured":false},{"_id":3,"title":"Last Action Hero","description":"Following the death of his father, young Danny Madigan (Austin O\'\'Brien) takes comfort in watching action movies featuring the indestructible Los Angeles cop Jack Slater (Arnold Schwarzenegger). After being given a magic ticket by theater manager Nick (Robert Prosky), Danny is sucked into the screen and bonds with Slater. When evil fictional villain Benedict (Charles Dance) gets his hands on the ticket and enters the real world, Danny and Jack must follow and stop him.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"John McTiernan","bio":"John Campbell McTiernan Jr. is an American filmmaker. (src: https://en.wikipedia.org/wiki/John_McTiernan)","birth":"1951-01-08"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/0/0e/Last_action_hero_ver2.jpg/220px-Last_action_hero_ver2.jpg","featured":false},{"_id":4,"title":"Predator","description":"Dutch (Arnold Schwarzenegger), a soldier of fortune, is hired by the U.S. government to secretly rescue a group of politicians trapped in Guatemala. But when Dutch and his team, which includes weapons expert Blain (Jesse Ventura) and CIA agent George (Carl Weathers), land in Central America, something is gravely wrong. After finding a string of dead bodies, the crew discovers they are being hunted by a brutal creature with superhuman strength and the ability to disappear into its surroundings.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"John McTiernan","bio":"John Campbell McTiernan Jr. is an American filmmaker. (src: https://en.wikipedia.org/wiki/John_McTiernan)","birth":"1951-01-08"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/9/95/Predator_Movie.jpg/220px-Predator_Movie.jpg","featured":false},{"_id":5,"title":"The 13th Warrior","description":"A Muslim ambassador exiled from his homeland, Ahmad ibn Fadlan (Antonio Banderas) finds himself in the company of Vikings. While the behavior of the Norsemen initially offends ibn Fadlan, the more cultured outsider grows to respect the tough, if uncouth, warriors. During their travels together, ibn Fadlan and the Vikings get word of an evil presence closing in, and they must fight the frightening and formidable force, which was previously thought to exist only in legend.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"John McTiernan","bio":"John Campbell McTiernan Jr. is an American filmmaker. (src: https://en.wikipedia.org/wiki/John_McTiernan)","birth":"1951-01-08"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/13thwarriorposter.jpg/220px-13thwarriorposter.jpg","featured":false},{"_id":6,"title":"Die Hard","description":"New York City policeman John McClane (Bruce Willis) is visiting his estranged wife (Bonnie Bedelia) and two daughters on Christmas Eve. He joins her at a holiday party in the headquarters of the Japanese-owned business she works for. But the festivities are interrupted by a group of terrorists who take over the exclusive high-rise, and everyone in it. Very soon McClane realizes that there\'\'s no one to save the hostages -- but him.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"John McTiernan","bio":"John Campbell McTiernan Jr. is an American filmmaker. (src: https://en.wikipedia.org/wiki/John_McTiernan)","birth":"1951-01-08"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Die_Hard_%281988_film%29_poster.jpg/220px-Die_Hard_%281988_film%29_poster.jpg","featured":false},{"_id":7,"title":"The Hunt for Red October","description":"Based on the popular Tom Clancy novel, this suspenseful movie tracks Soviet submarine captain Marko Ramius (Sean Connery) as he abandons his orders and heads for the east coast of the United States. Equipped with innovative stealth technology, Ramius\'\' submarine, \\"Red October,\\" is virtually invisible. However, when an American sub briefly detects the Russians\' presence, CIA agent Jack Ryan (Alec Baldwin) sets out to determine Ramius\'\' motives, fearing he may launch an attack on the U.S.","genre":{"name":"Adventure","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"John McTiernan","bio":"John Campbell McTiernan Jr. is an American filmmaker. (src: https://en.wikipedia.org/wiki/John_McTiernan)","birth":"1951-01-08"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/3/36/The_Hunt_for_Red_October_movie_poster.png/220px-The_Hunt_for_Red_October_movie_poster.png","featured":false},{"_id":8,"title":"Forrest Gump","description":"Slow-witted Forrest Gump (Tom Hanks) has never thought of himself as disadvantaged, and thanks to his supportive mother (Sally Field), he leads anything but a restricted life. Whether dominating on the gridiron as a college football star, fighting in Vietnam or captaining a shrimp boat, Forrest inspires people with his childlike optimism. But one person Forrest cares about most may be the most difficult to save -- his childhood love, the sweet but troubled Jenny (Robin Wright).","genre":{"name":"Drama","description":"Focused on emotions and defined by conflict, often looking to reality rather than sensationalism.(src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"Robert Zemeckis","bio":"Robert Lee Zemeckis is an American filmmaker. (src: https://en.wikipedia.org/wiki/Robert_Zemeckis)","birth":"1952-05-14"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/6/67/Forrest_Gump_poster.jpg/220px-Forrest_Gump_poster.jpg","featured":false},{"_id":9,"title":"Who Framed Roger Rabbit","description":"Down-on-his-luck private eye Eddie Valiant (Bob Hoskins) gets hired by cartoon producer R.K. Maroon (Alan Tilvern) to investigate an adultery scandal involving Jessica Rabbit (Kathleen Turner), the sultry wife of Maroon\'\'s biggest star, Roger Rabbit (Charles Fleischer). But when Marvin Acme (Stubby Kaye), Jessica\'\'s alleged paramour and the owner of Toontown, is found murdered, the villainous Judge Doom (Christopher Lloyd) vows to catch and destroy Roger.","genre":{"name":"Drama","description":"Focused on emotions and defined by conflict, often looking to reality rather than sensationalism.(src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"Robert Zemeckis","bio":"Robert Lee Zemeckis is an American filmmaker. (src: https://en.wikipedia.org/wiki/Robert_Zemeckis)","birth":"1952-05-14"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/3/32/Movie_poster_who_framed_roger_rabbit.jpg/220px-Movie_poster_who_framed_roger_rabbit.jpg","featured":false},{"_id":10,"title":"Romancing the Stone","description":"A dowdy romantic-adventure writer is hurled into a real-life adventure in the Colombian jungle in order to save her sister, who will be killed if a treasure map is not delivered to her captors. She is helped out by a brash mercenary, and together they search for the priceless gem located in the map.","genre":{"name":"Adventure","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"Robert Zemeckis","bio":"Robert Lee Zemeckis is an American filmmaker. (src: https://en.wikipedia.org/wiki/Robert_Zemeckis)","birth":"1952-05-14"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Romancing_the_stone.jpg/220px-Romancing_the_stone.jpg","featured":false}]');
 
 },{}],"bwuIu":[function(require,module,exports) {
@@ -27438,16 +27511,14 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 const MovieCard = ({ movie, onMovieClick })=>{
-    //const movieID = movie._id;
-    const movieID = "hi";
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         onClick: ()=>{
             onMovieClick(movie);
         },
         children: movie.title
-    }, movieID, false, {
+    }, movie._id, false, {
         fileName: "src/components/movie-card/movie-card.jsx",
-        lineNumber: 8,
+        lineNumber: 5,
         columnNumber: 9
     }, undefined);
 };
@@ -28290,7 +28361,7 @@ const MovieView = ({ movie, onBackClick })=>{
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
                     src: movie.image,
-                    altText: altText
+                    alt: altText
                 }, void 0, false, {
                     fileName: "src/components/movie-view/movie-view.jsx",
                     lineNumber: 12,
@@ -28324,7 +28395,7 @@ MovieView.propTypes = {
         genre: (0, _propTypesDefault.default).string,
         image: (0, _propTypesDefault.default).string.isRequired
     }).isRequired,
-    onMovieClick: (0, _propTypesDefault.default).func.isRequired
+    onBackClick: (0, _propTypesDefault.default).func.isRequired
 };
 var _c;
 $RefreshReg$(_c, "MovieView");
@@ -28334,6 +28405,300 @@ $RefreshReg$(_c, "MovieView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","prop-types":"7wKI2"}]},["d8m58","1xC6H","d8Dch"], "d8Dch", "parcelRequire8cf1")
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","prop-types":"7wKI2"}],"9YtA0":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$9fee = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$9fee.prelude(module);
+
+try {
+//////////
+//
+//  Login Window
+//
+//////////
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "LoginView", ()=>LoginView);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _s = $RefreshSig$();
+const LoginView = ({ onLoggedIn, appWebsite })=>{
+    _s();
+    const [username, setUsername] = (0, _react.useState)("");
+    const [password, setPassword] = (0, _react.useState)("");
+    const handleSubmit = (event)=>{
+        //Stop reload on submit
+        event.preventDefault();
+        const data = {
+            username: username,
+            password: password
+        };
+        console.log(JSON.stringify(data));
+        fetch(appWebsite + "/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then((response)=>{
+            return response.json();
+        }).then((resData)=>{
+            console.log("Login response: ", resData);
+            if (resData.user) {
+                //Save successful login to localStorage
+                localStorage.setItem("user", JSON.stringify(resData.user));
+                localStorage.setItem("token", resData.token);
+                onLoggedIn(resData.user, resData.token);
+            } else alert("No such user");
+        }).catch((e)=>{
+            alert("Something went wrong: " + e);
+        });
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
+        onSubmit: handleSubmit,
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                children: [
+                    "Username:",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        type: "text",
+                        value: username,
+                        autoComplete: "username",
+                        onChange: (e)=>setUsername(e.target.value),
+                        required: true
+                    }, void 0, false, {
+                        fileName: "src/components/login-view/login-view.jsx",
+                        lineNumber: 59,
+                        columnNumber: 17
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/login-view/login-view.jsx",
+                lineNumber: 57,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                fileName: "src/components/login-view/login-view.jsx",
+                lineNumber: 67,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                children: [
+                    "Password:",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        type: "password",
+                        value: password,
+                        autoComplete: "current-password",
+                        onChange: (e)=>setPassword(e.target.value)
+                    }, void 0, false, {
+                        fileName: "src/components/login-view/login-view.jsx",
+                        lineNumber: 70,
+                        columnNumber: 17
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/login-view/login-view.jsx",
+                lineNumber: 68,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                fileName: "src/components/login-view/login-view.jsx",
+                lineNumber: 77,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                type: "submit",
+                children: "Submit"
+            }, void 0, false, {
+                fileName: "src/components/login-view/login-view.jsx",
+                lineNumber: 78,
+                columnNumber: 13
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/login-view/login-view.jsx",
+        lineNumber: 56,
+        columnNumber: 9
+    }, undefined);
+};
+_s(LoginView, "wuQOK7xaXdVz4RMrZQhWbI751Oc=");
+_c = LoginView;
+LoginView.propTypes = {
+    onLoggedIn: (0, _propTypesDefault.default).func.isRequired,
+    appWebsite: (0, _propTypesDefault.default).string.isRequired
+};
+var _c;
+$RefreshReg$(_c, "LoginView");
+
+  $parcel$ReactRefreshHelpers$9fee.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","prop-types":"7wKI2"}],"4OGiN":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$73d1 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$73d1.prelude(module);
+
+try {
+//////////
+//
+//
+//
+//////////
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "SignupView", ()=>SignupView);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _s = $RefreshSig$();
+const SignupView = ({ appWebsite })=>{
+    _s();
+    const [username, setUsername] = (0, _react.useState)("");
+    const [password, setPassword] = (0, _react.useState)("");
+    const [email, setEmail] = (0, _react.useState)("");
+    const [birthday, setBirthday] = (0, _react.useState)("");
+    const handleSubmit = (event)=>{
+        event.preventDefault();
+        const data = {
+            username: username,
+            password: password,
+            email: email,
+            birthday: birthday
+        };
+        console.log(appWebsite + "/users");
+        fetch(appWebsite + "/users", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((response)=>{
+            if (response.ok) {
+                alert("Signup successful!");
+                window.location.reload();
+            } else alert("Signup failed");
+        });
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
+        onSubmit: handleSubmit,
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                children: [
+                    "Username:",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        type: "text",
+                        value: username,
+                        autoComplete: "username",
+                        onChange: (e)=>setUsername(e.target.value),
+                        required: true,
+                        minLength: "3"
+                    }, void 0, false, {
+                        fileName: "src/components/signup-view/signup-view.jsx",
+                        lineNumber: 49,
+                        columnNumber: 17
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/signup-view/signup-view.jsx",
+                lineNumber: 47,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                children: [
+                    "Password:",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        type: "password",
+                        value: password,
+                        autoComplete: "new-password",
+                        onChange: (e)=>setPassword(e.target.value),
+                        required: true
+                    }, void 0, false, {
+                        fileName: "src/components/signup-view/signup-view.jsx",
+                        lineNumber: 60,
+                        columnNumber: 17
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/signup-view/signup-view.jsx",
+                lineNumber: 58,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                children: [
+                    "Email:",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        type: "email",
+                        value: email,
+                        onChange: (e)=>setEmail(e.target.value),
+                        required: true,
+                        minLength: "3"
+                    }, void 0, false, {
+                        fileName: "src/components/signup-view/signup-view.jsx",
+                        lineNumber: 70,
+                        columnNumber: 17
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/signup-view/signup-view.jsx",
+                lineNumber: 68,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                children: [
+                    "Birthday:",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        type: "date",
+                        value: birthday,
+                        onChange: (e)=>setBirthday(e.target.value),
+                        required: true,
+                        minLength: "3"
+                    }, void 0, false, {
+                        fileName: "src/components/signup-view/signup-view.jsx",
+                        lineNumber: 80,
+                        columnNumber: 17
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/signup-view/signup-view.jsx",
+                lineNumber: 78,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                type: "submit",
+                children: "Submit"
+            }, void 0, false, {
+                fileName: "src/components/signup-view/signup-view.jsx",
+                lineNumber: 90,
+                columnNumber: 13
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/signup-view/signup-view.jsx",
+        lineNumber: 46,
+        columnNumber: 9
+    }, undefined);
+};
+_s(SignupView, "jsOQN3GC2XlBG9ITlzCdpyJOnso=");
+_c = SignupView;
+SignupView.propTypes = {
+    appWebsite: (0, _propTypesDefault.default).string.isRequired
+};
+var _c;
+$RefreshReg$(_c, "SignupView");
+
+  $parcel$ReactRefreshHelpers$73d1.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq","prop-types":"7wKI2"}]},["d8m58","1xC6H","d8Dch"], "d8Dch", "parcelRequire8cf1")
 
 //# sourceMappingURL=index.b4b6dfad.js.map

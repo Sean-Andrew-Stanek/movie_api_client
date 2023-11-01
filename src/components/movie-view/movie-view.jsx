@@ -9,7 +9,7 @@ export const MovieView = ({movie, onBackClick}) => {
         <div key={movie._id} onClick={onBackClick}>
             <div> Title: {movie.title}</div>
             <div> Director: {movie.director} </div>
-            <div><img src={movie.image} altText={altText}></img></div>
+            <div><img src={movie.image} alt={altText}></img></div>
             <button>Return</button>
         </div>
     );
@@ -23,5 +23,5 @@ MovieView.propTypes = {
         genre: PropTypes.string,
         image: PropTypes.string.isRequired
     }).isRequired,
-    onMovieClick: PropTypes.func.isRequired
+    onBackClick: PropTypes.func.isRequired
 };
