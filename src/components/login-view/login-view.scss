@@ -1,0 +1,13 @@
+.navButton {
+    padding: 4px 30px 4px 30px;
+    color: rgba(240, 240, 240, .9);
+    background-color: rgba(130, 100, 200, 1);
+    border: 1px solid black;
+    margin: 3px 0px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.navButton:hover {
+    background-color: rgba(20, 80, 180, 1);
+}

@@ -5,6 +5,9 @@
 //////////
 import React from "react";
 import {useState} from "react";
+/* import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form'; */
+import {Button, Form, Container, Row, Card} from 'react-bootstrap'
 
 import PropTypes from "prop-types";
 
@@ -53,32 +56,47 @@ export const LoginView = ( {onLoggedIn, appWebsite}) => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Username:
-                <input 
-                    type='text'
-                    value={username}
-                    autoComplete = "username"
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-            </label>
-            <br />
-            <label>
-                Password:
-                <input 
-                    type='password'
-                    value={password}
-                    autoComplete = "current-password"
-                    onChange={(e)=>setPassword(e.target.value)}
-                />
-            </label>
-            <br />
-            <button type='submit'>
-                Submit
-            </button>
-        </form>
+        <Container className="mt-5">
+            <Row>
+                <Card>
+                    <Card.Title style={{textAlign: 'center', fontSize: 36}}>Login</Card.Title>
+                    <Card.Body>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group controlId="formUsername">
+                                <Form.Label>
+                                    Username:
+                                </Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    value={username}
+                                    autoComplete = "username"
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    required
+                                    minLength="3"
+                                />
+                            </Form.Group>
+
+                            <Form.Group controlId="formPassword">
+                                <Form.Label>
+                                    Password:
+                                </Form.Label>
+                                <Form.Control
+                                    type='password'
+                                    value={password}
+                                    autoComplete = "current-password"
+                                    onChange={(e)=>setPassword(e.target.value)}                
+                                />
+                            </Form.Group>
+                            <Container className="text-center"> 
+                                <Button className="navButton mt-2" variant="primary" type="submit">
+                                    Submit
+                                </Button>
+                            </Container>
+                        </Form>
+                    </Card.Body>
+                </Card>
+            </Row>
+        </Container>
     );
 };
 

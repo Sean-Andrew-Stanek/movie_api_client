@@ -1,4 +1,7 @@
 import PropTypes from "prop-types";
+import { Button, Card, Container} from 'react-bootstrap';
+
+import './movie-view.scss';
 
 export const MovieView = ({movie, onBackClick}) => {
     
@@ -6,12 +9,22 @@ export const MovieView = ({movie, onBackClick}) => {
     var altText = `Picture of ${movie.title}`;
 
     return (
-        <div key={movie._id} onClick={onBackClick}>
-            <div> Title: {movie.title}</div>
-            <div> Director: {movie.director} </div>
-            <div><img src={movie.image} alt={altText}></img></div>
-            <button>Return</button>
-        </div>
+
+        <Card className="cardContainer">
+            <Card.Img variant="top" className="mainCardImg" src={movie.image} />
+            <Card.Body className="pb-0">
+                <Container className="info mb-4">
+                    <Card.Title className="title">Title: {movie.title}</Card.Title>
+                    <Card.Text className="genre">
+                        Director: {movie.director}<br />
+                        Genre: {movie.genre}                  
+                    </Card.Text>
+                </Container>
+                <Button onClick={() => onBackClick(movie)} className="navButton mb-2" variant="primary">
+                    Back
+                </Button> 
+            </Card.Body>
+        </Card>
     );
 };
 
@@ -20,7 +33,7 @@ MovieView.propTypes = {
         _id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         director: PropTypes.string.isRequired,
-        genre: PropTypes.string,
+        genre: PropTypes.string.isRequired,
         image: PropTypes.string.isRequired
     }).isRequired,
     onBackClick: PropTypes.func.isRequired

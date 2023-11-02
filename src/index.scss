@@ -1,4 +1,16 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+
 $color: steelblue;
+
+html{
+    background-color: rgba(10, 10, 20, 1);
+    color: rgba(240, 240, 240, 1);
+}
+
+#root {
+    background-color: rgba(10, 10, 20, 1);
+    color: rgba(240, 240, 240, 1);
+}
 
 .my-flix {
     color: $color;
