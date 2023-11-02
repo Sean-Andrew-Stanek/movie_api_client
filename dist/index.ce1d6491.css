@@ -13216,23 +13216,26 @@ html, #root {
   color: #f0f0f0e6;
   cursor: pointer;
   background-color: #8264c8;
-  border: 1px solid #000;
-  border-radius: 4px;
+  border: 2px solid #000;
+  border-radius: 1px;
   padding: 4px 10px;
 }
 
 .navButton:hover {
   background-color: #1450b4;
+  transition: background-color .5s;
 }
 
 .cardContainer {
   color: #f0f0f0;
   background-color: #0a1428;
+  border: 2px solid #000;
 }
 
 .cardContainer:hover {
   color: #c8c8c8;
   background-color: #142850;
+  transition: background-color .5s;
 }
 
 .cardImg {
@@ -13276,6 +13279,18 @@ html, #root {
 .info {
   height: 50%;
   padding: 0;
+}
+
+.bg-transparent-light {
+  background-color: #f0f0f01a;
+}
+
+.bg-transparent-light a {
+  color: #8264c8;
+}
+
+.bg-transparent-light a:hover {
+  color: #e6e6e6cc;
 }
 
 /*# sourceMappingURL=index.ce1d6491.css.map */

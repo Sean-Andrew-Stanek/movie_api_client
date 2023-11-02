@@ -1,10 +1,18 @@
-import PropTypes from "prop-types";
 import { Button, Card, Container} from 'react-bootstrap';
+import {Link} from "react-router-dom";
+import { useParams } from "react-router";
 
 import './movie-view.scss';
 
-export const MovieView = ({movie, onBackClick}) => {
-    
+export const MovieView = ({movies}) => {
+    const {movieId} = useParams();
+
+    const movie = movies.find((movie) => movie._id === movieId);
+    if(movie == undefined)
+    {
+        return;
+    }
+
     //ARIA tags
     var altText = `Picture of ${movie.title}`;
 
@@ -20,21 +28,12 @@ export const MovieView = ({movie, onBackClick}) => {
                         Genre: {movie.genre}                  
                     </Card.Text>
                 </Container>
-                <Button onClick={() => onBackClick(movie)} className="navButton mb-2" variant="primary">
-                    Back
-                </Button> 
+                <Link to={'/'}>
+                    <Button className="navButton mb-2" variant="primary">
+                        Back
+                    </Button> 
+                </Link>
             </Card.Body>
         </Card>
     );
-};
-
-MovieView.propTypes = {
-    movie: PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        director: PropTypes.string.isRequired,
-        genre: PropTypes.string.isRequired,
-        image: PropTypes.string.isRequired
-    }).isRequired,
-    onBackClick: PropTypes.func.isRequired
 };
