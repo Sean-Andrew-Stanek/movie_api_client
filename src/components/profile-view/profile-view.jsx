@@ -19,7 +19,7 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
         
-    data = {
+    const data = {
         password:password,
         username:username,
         email:email,
@@ -82,7 +82,32 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
                         </Card.Title>
                     
                     <Card.Body>
-                        <Container style={{textAlign:'center'}}><Button onClick={handleUsernameClick}>Change Username</Button></Container>
+                        <Container style={{textAlign:'center'}}>
+                            <Button onClick={handleUsernameClick}>Change Username</Button></Container>
+                            {
+                                showUsernameChange &&
+                                    <Form onSubmit={handleSubmit('username')}>
+                                        <Form.Group controlId="formUsername">
+                                            <Form.Label>
+                                                Username:
+                                            </Form.Label>
+                                            <Form.Control
+                                                type='text'
+                                                value={username}
+                                                autoComplete = "username"
+                                                onChange={(e) => setUsername(e.target.value)}
+                                                required
+                                                minLength="3"
+                                            />
+                                        </Form.Group>
+                                            <Container className="text-center"> 
+                                                <Button className="navButton mt-2" variant="primary" type="submit">
+                                                    Submit
+                                                </Button>
+                                            </Container>
+                                    </Form>
+
+                            }
                         <Container>
                             <Card.Text> Email: {user.email}<br /><Button onClick={handleEmailClick}>change</Button></Card.Text>
                             {
