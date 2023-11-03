@@ -17,8 +17,6 @@ import { ProfileView } from '../profile-view/profile-view';
 export const MainView = () => {
 
     const appWebsite = "https://my-movie-db-1195f41cc20f.herokuapp.com"
-
-    console.log(JSON.parse(localStorage.getItem("user")));
     //State Variables
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedToken = localStorage.getItem("token");
@@ -27,6 +25,7 @@ export const MainView = () => {
     const [movies, setMovies] = useState([]);
     const[loadingData, setLoadingData] = useState(true);
 
+    console.log(user);
     //retrieve all movie data from the db
     useEffect(() => {
 
@@ -117,11 +116,13 @@ export const MainView = () => {
                     {!user ? (
                         <Navigate to="/login" replace />
                     ):(
-                        <Col md={6}>
+                        <Col md={10}>
                             <ProfileView
                                 user={user}
+                                updateUser={(user)=>{setUser(user)}}
                                 token={token}
                                 movies={movies}
+                                appWebsite={appWebsite}
                             />
                         </Col>
                     )}

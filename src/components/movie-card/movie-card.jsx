@@ -5,7 +5,7 @@ import {Link} from "react-router-dom"
 
 import './movie-card.scss';
 
-export const MovieCard = ({movie}) => {
+export const MovieCard = ({movie, user, setUser}) => {
 
     return (
         <Card className="h-100 cardContainer">
@@ -16,8 +16,13 @@ export const MovieCard = ({movie}) => {
                     <Card.Text className="genre">{movie.genre}</Card.Text>
                 </Container>
                 <Link tabIndex="-1" to={`/movies/${encodeURIComponent(movie._id)}`}>
-                    <Button onClick={()=>console.log(movie._id)} className="navButton mb-0" variant="primary">
+                    <Button className="navButton mb-0" variant="primary">
                         Details
+                    </Button> 
+                </Link>
+                <Link tabIndex="-1" to={`/movies/${encodeURIComponent(movie._id)}`}>
+                    <Button className="navButton mb-0" variant="primary">
+                        Favorite
                     </Button> 
                 </Link>
             </Card.Body>

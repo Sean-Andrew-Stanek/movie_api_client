@@ -25,7 +25,7 @@ export const SignupView = ({appWebsite}) => {
             email: email,
             birthday: birthday
         };
-        console.log(appWebsite+'/users');
+        
 
         fetch(appWebsite + '/users', {
             method: "POST",
