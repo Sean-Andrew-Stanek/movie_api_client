@@ -27333,10 +27333,12 @@ var _movieView = require("../movie-view/movie-view");
 var _loginView = require("../login-view/login-view");
 var _signupView = require("../signup-view/signup-view");
 var _navigationBar = require("../navigation-bar/navigation-bar");
+var _profileView = require("../profile-view/profile-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
     const appWebsite = "https://my-movie-db-1195f41cc20f.herokuapp.com";
+    console.log(JSON.parse(localStorage.getItem("user")));
     //State Variables
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedToken = localStorage.getItem("token");
@@ -27369,127 +27371,154 @@ const MainView = ()=>{
     }, [
         token
     ]);
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+    let navigationBar = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _navigationBar.NavigationBar), {
+        user: user,
+        onLoggedOut: ()=>{
+            localStorage.clear();
+            setUser(null);
+            setToken(null);
+        }
+    }, void 0, false, {
+        fileName: "src/components/main-view/main-view.jsx",
+        lineNumber: 61,
+        columnNumber: 9
+    }, undefined);
+    let routeToSignup = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
+        path: "/signup/",
+        element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+            children: user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
+                to: "/"
+            }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                md: 5,
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {
+                    appWebsite: appWebsite
+                }, void 0, false, void 0, void 0)
+            }, void 0, false, void 0, void 0)
+        }, void 0, false)
+    }, void 0, false, {
+        fileName: "src/components/main-view/main-view.jsx",
+        lineNumber: 71,
+        columnNumber: 9
+    }, undefined);
+    let routeToLogin = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
+        path: "/login",
+        element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+            children: user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
+                to: "/"
+            }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                md: 5,
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
+                    onLoggedIn: (user, token)=>{
+                        setUser(user);
+                        setToken(token);
+                    },
+                    appWebsite: appWebsite
+                }, void 0, false, void 0, void 0)
+            }, void 0, false, void 0, void 0)
+        }, void 0, false)
+    }, void 0, false, {
+        fileName: "src/components/main-view/main-view.jsx",
+        lineNumber: 89,
+        columnNumber: 9
+    }, undefined);
+    let routeToProfile = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
+        path: "/profile",
+        element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+            children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
+                to: "/login",
+                replace: true
+            }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                md: 6,
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileView.ProfileView), {
+                    user: user,
+                    token: token,
+                    movies: movies
+                }, void 0, false, void 0, void 0)
+            }, void 0, false, void 0, void 0)
+        }, void 0, false)
+    }, void 0, false, {
+        fileName: "src/components/main-view/main-view.jsx",
+        lineNumber: 113,
+        columnNumber: 9
+    }, undefined);
+    let routeToMovie = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
+        path: "/movies/:movieId",
+        element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+            children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
+                to: "/login",
+                replace: true
+            }, void 0, false, void 0, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                children: "No movies have been loaded"
+            }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                md: 8,
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
+                    movies: movies
+                }, void 0, false, void 0, void 0)
+            }, void 0, false, void 0, void 0)
+        }, void 0, false)
+    }, void 0, false, {
+        fileName: "src/components/main-view/main-view.jsx",
+        lineNumber: 133,
+        columnNumber: 9
+    }, undefined);
+    let routeToHome = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
+        path: "/",
+        element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+            children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
+                to: "/login"
+            }, void 0, false, void 0, void 0) : loadingData ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: " Loading data "
+            }, void 0, false, void 0, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                children: "No movies have been loaded"
+            }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                children: movies.map((movie)=>{
+                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                        className: "mb-5",
+                        md: 3,
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                            movie: movie
+                        }, void 0, false, void 0, void 0)
+                    }, movie._id, false, void 0, void 0);
+                })
+            }, void 0, false)
+        }, void 0, false)
+    }, void 0, false, {
+        fileName: "src/components/main-view/main-view.jsx",
+        lineNumber: 151,
+        columnNumber: 9
+    }, undefined);
+    let returnCode = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.BrowserRouter), {
             children: [
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _navigationBar.NavigationBar), {
-                    user: true,
-                    onLoggedOut: ()=>{
-                        localStorage.clear;
-                        setUser(null);
-                        setToken(null);
-                    }
-                }, void 0, false, {
-                    fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 61,
-                    columnNumber: 13
-                }, undefined),
+                navigationBar,
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
                     className: "justify-content-md-center mainRow",
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Routes), {
                         children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                                path: "/signup/",
-                                element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-                                    children: user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
-                                        to: "/"
-                                    }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                        md: 5,
-                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {
-                                            appWebsite: appWebsite
-                                        }, void 0, false, void 0, void 0)
-                                    }, void 0, false, void 0, void 0)
-                                }, void 0, false)
-                            }, void 0, false, {
-                                fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 70,
-                                columnNumber: 21
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                                path: "/login",
-                                element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-                                    children: user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
-                                        to: "/"
-                                    }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                        md: 5,
-                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
-                                            onLoggedIn: (user, token)=>{
-                                                setUser(user);
-                                                setToken(token);
-                                            },
-                                            appWebsite: appWebsite
-                                        }, void 0, false, void 0, void 0)
-                                    }, void 0, false, void 0, void 0)
-                                }, void 0, false)
-                            }, void 0, false, {
-                                fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 86,
-                                columnNumber: 21
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                                path: "/movies/:movieId",
-                                element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-                                    children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
-                                        to: "/login",
-                                        replace: true
-                                    }, void 0, false, void 0, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                        children: "No movies have been loaded"
-                                    }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                        md: 8,
-                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
-                                            movies: movies
-                                        }, void 0, false, void 0, void 0)
-                                    }, void 0, false, void 0, void 0)
-                                }, void 0, false)
-                            }, void 0, false, {
-                                fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 108,
-                                columnNumber: 21
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                                path: "/",
-                                element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-                                    children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
-                                        to: "/login"
-                                    }, void 0, false, void 0, void 0) : loadingData ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                        children: " Loading data "
-                                    }, void 0, false, void 0, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                        children: "No movies have been loaded"
-                                    }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-                                        children: movies.map((movie)=>{
-                                            return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                                                className: "mb-5",
-                                                md: 3,
-                                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                                                    movie: movie
-                                                }, void 0, false, void 0, void 0)
-                                            }, movie._id, false, void 0, void 0);
-                                        })
-                                    }, void 0, false)
-                                }, void 0, false)
-                            }, void 0, false, {
-                                fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 124,
-                                columnNumber: 21
-                            }, undefined)
+                            routeToSignup,
+                            routeToLogin,
+                            routeToProfile,
+                            routeToMovie,
+                            routeToHome
                         ]
                     }, void 0, true, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 69,
-                        columnNumber: 17
+                        lineNumber: 185,
+                        columnNumber: 21
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 68,
-                    columnNumber: 13
+                    lineNumber: 184,
+                    columnNumber: 17
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 60,
-            columnNumber: 9
+            lineNumber: 182,
+            columnNumber: 13
         }, undefined)
     }, void 0, false);
+    return returnCode;
 };
 _s(MainView, "oIm77UiJ1EXZzju0L/XqJBK71yg=");
 _c = MainView;
@@ -27501,7 +27530,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../../mock-data/movies.json":"cQXUu","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","react-bootstrap/Row":"cMC39","react-bootstrap/Col":"2L2I6","react-router-dom":"9xmpe","../navigation-bar/navigation-bar":"bsPVM"}],"cQXUu":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../../mock-data/movies.json":"cQXUu","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","react-bootstrap/Row":"cMC39","react-bootstrap/Col":"2L2I6","react-router-dom":"9xmpe","../navigation-bar/navigation-bar":"bsPVM","../profile-view/profile-view":"2vVqf"}],"cQXUu":[function(require,module,exports) {
 module.exports = JSON.parse('[{"_id":1,"title":"Commando","description":"Retired Special Forces soldier John Matrix (Arnold Schwarzenegger) lives with daughter Jenny (Alyssa Milano) in isolation, but his privacy is disturbed by former commander Franklin Kirby (James Olson), who warns him that his fellow soldiers are getting killed one by one. After Kirby leaves, Jenny is kidnapped by former Latin American dictator Arius (Dan Hedaya), who wants Matrix to restore him to power. Instead, Matrix sets out to take down the rogue leader and rescue his daughter.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"Mark L. Lester","bio":"Mark L. Lester is an American film director, screenwriter, and producer. (src: https://en.wikipedia.org/wiki/Mark_L._Lester)","birth":"1946-11-26"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/d/d9/Commandoposter.jpg/220px-Commandoposter.jpg","featured":false},{"_id":2,"title":"Showdown in Little Tokyo","description":"An American with a Japanese upbringing, Chris Kenner (Dolph Lundgren) is a police officer assigned to the Little Tokyo section of Los Angeles. Kenner is partnered with Johnny Murata (Brandon Lee), a Japanese-American who isn\'\'t in touch with his roots. Despite their differences, both men excel at martial arts, and utilize their formidable skills when they go up against Yoshida (Cary-Hiroyuki Tagawa), a vicious yakuza drug dealer with ties to Kenner\'\'s past.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"Mark L. Lester","bio":"Mark L. Lester is an American film director, screenwriter, and producer. (src: https://en.wikipedia.org/wiki/Mark_L._Lester)","birth":"1946-11-26"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/2/2c/Showdown_in_Little_Tokyo_poster.jpg/220px-Showdown_in_Little_Tokyo_poster.jpg","featured":false},{"_id":3,"title":"Last Action Hero","description":"Following the death of his father, young Danny Madigan (Austin O\'\'Brien) takes comfort in watching action movies featuring the indestructible Los Angeles cop Jack Slater (Arnold Schwarzenegger). After being given a magic ticket by theater manager Nick (Robert Prosky), Danny is sucked into the screen and bonds with Slater. When evil fictional villain Benedict (Charles Dance) gets his hands on the ticket and enters the real world, Danny and Jack must follow and stop him.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"John McTiernan","bio":"John Campbell McTiernan Jr. is an American filmmaker. (src: https://en.wikipedia.org/wiki/John_McTiernan)","birth":"1951-01-08"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/0/0e/Last_action_hero_ver2.jpg/220px-Last_action_hero_ver2.jpg","featured":false},{"_id":4,"title":"Predator","description":"Dutch (Arnold Schwarzenegger), a soldier of fortune, is hired by the U.S. government to secretly rescue a group of politicians trapped in Guatemala. But when Dutch and his team, which includes weapons expert Blain (Jesse Ventura) and CIA agent George (Carl Weathers), land in Central America, something is gravely wrong. After finding a string of dead bodies, the crew discovers they are being hunted by a brutal creature with superhuman strength and the ability to disappear into its surroundings.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"John McTiernan","bio":"John Campbell McTiernan Jr. is an American filmmaker. (src: https://en.wikipedia.org/wiki/John_McTiernan)","birth":"1951-01-08"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/9/95/Predator_Movie.jpg/220px-Predator_Movie.jpg","featured":false},{"_id":5,"title":"The 13th Warrior","description":"A Muslim ambassador exiled from his homeland, Ahmad ibn Fadlan (Antonio Banderas) finds himself in the company of Vikings. While the behavior of the Norsemen initially offends ibn Fadlan, the more cultured outsider grows to respect the tough, if uncouth, warriors. During their travels together, ibn Fadlan and the Vikings get word of an evil presence closing in, and they must fight the frightening and formidable force, which was previously thought to exist only in legend.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"John McTiernan","bio":"John Campbell McTiernan Jr. is an American filmmaker. (src: https://en.wikipedia.org/wiki/John_McTiernan)","birth":"1951-01-08"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/13thwarriorposter.jpg/220px-13thwarriorposter.jpg","featured":false},{"_id":6,"title":"Die Hard","description":"New York City policeman John McClane (Bruce Willis) is visiting his estranged wife (Bonnie Bedelia) and two daughters on Christmas Eve. He joins her at a holiday party in the headquarters of the Japanese-owned business she works for. But the festivities are interrupted by a group of terrorists who take over the exclusive high-rise, and everyone in it. Very soon McClane realizes that there\'\'s no one to save the hostages -- but him.","genre":{"name":"Action","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"John McTiernan","bio":"John Campbell McTiernan Jr. is an American filmmaker. (src: https://en.wikipedia.org/wiki/John_McTiernan)","birth":"1951-01-08"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Die_Hard_%281988_film%29_poster.jpg/220px-Die_Hard_%281988_film%29_poster.jpg","featured":false},{"_id":7,"title":"The Hunt for Red October","description":"Based on the popular Tom Clancy novel, this suspenseful movie tracks Soviet submarine captain Marko Ramius (Sean Connery) as he abandons his orders and heads for the east coast of the United States. Equipped with innovative stealth technology, Ramius\'\' submarine, \\"Red October,\\" is virtually invisible. However, when an American sub briefly detects the Russians\' presence, CIA agent Jack Ryan (Alec Baldwin) sets out to determine Ramius\'\' motives, fearing he may launch an attack on the U.S.","genre":{"name":"Adventure","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"John McTiernan","bio":"John Campbell McTiernan Jr. is an American filmmaker. (src: https://en.wikipedia.org/wiki/John_McTiernan)","birth":"1951-01-08"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/3/36/The_Hunt_for_Red_October_movie_poster.png/220px-The_Hunt_for_Red_October_movie_poster.png","featured":false},{"_id":8,"title":"Forrest Gump","description":"Slow-witted Forrest Gump (Tom Hanks) has never thought of himself as disadvantaged, and thanks to his supportive mother (Sally Field), he leads anything but a restricted life. Whether dominating on the gridiron as a college football star, fighting in Vietnam or captaining a shrimp boat, Forrest inspires people with his childlike optimism. But one person Forrest cares about most may be the most difficult to save -- his childhood love, the sweet but troubled Jenny (Robin Wright).","genre":{"name":"Drama","description":"Focused on emotions and defined by conflict, often looking to reality rather than sensationalism.(src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"Robert Zemeckis","bio":"Robert Lee Zemeckis is an American filmmaker. (src: https://en.wikipedia.org/wiki/Robert_Zemeckis)","birth":"1952-05-14"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/6/67/Forrest_Gump_poster.jpg/220px-Forrest_Gump_poster.jpg","featured":false},{"_id":9,"title":"Who Framed Roger Rabbit","description":"Down-on-his-luck private eye Eddie Valiant (Bob Hoskins) gets hired by cartoon producer R.K. Maroon (Alan Tilvern) to investigate an adultery scandal involving Jessica Rabbit (Kathleen Turner), the sultry wife of Maroon\'\'s biggest star, Roger Rabbit (Charles Fleischer). But when Marvin Acme (Stubby Kaye), Jessica\'\'s alleged paramour and the owner of Toontown, is found murdered, the villainous Judge Doom (Christopher Lloyd) vows to catch and destroy Roger.","genre":{"name":"Drama","description":"Focused on emotions and defined by conflict, often looking to reality rather than sensationalism.(src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"Robert Zemeckis","bio":"Robert Lee Zemeckis is an American filmmaker. (src: https://en.wikipedia.org/wiki/Robert_Zemeckis)","birth":"1952-05-14"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/3/32/Movie_poster_who_framed_roger_rabbit.jpg/220px-Movie_poster_who_framed_roger_rabbit.jpg","featured":false},{"_id":10,"title":"Romancing the Stone","description":"A dowdy romantic-adventure writer is hurled into a real-life adventure in the Colombian jungle in order to save her sister, who will be killed if a treasure map is not delivered to her captors. She is helped out by a brash mercenary, and together they search for the priceless gem located in the map.","genre":{"name":"Adventure","description":"Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting. Typically, though not always, such stories include the quest narrative. The predominant emphasis on violence and fighting in action films is the typical difference between the two genres.  (src: https://en.wikipedia.org/wiki/Film_genre)"},"director":{"name":"Robert Zemeckis","bio":"Robert Lee Zemeckis is an American filmmaker. (src: https://en.wikipedia.org/wiki/Robert_Zemeckis)","birth":"1952-05-14"},"image":"https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Romancing_the_stone.jpg/220px-Romancing_the_stone.jpg","featured":false}]');
 
 },{}],"bwuIu":[function(require,module,exports) {
@@ -41446,8 +41475,6 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "NavigationBar", ()=>NavigationBar);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _propTypes = require("prop-types");
-var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 var _navigationBarScss = require("./navigation-bar.scss");
@@ -41466,14 +41493,14 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                     children: "MovieAPI Demo"
                 }, void 0, false, {
                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 12,
+                    lineNumber: 11,
                     columnNumber: 17
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Toggle, {
                     "aria-controls": "basic-navbar-nav"
                 }, void 0, false, {
                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 15,
+                    lineNumber: 14,
                     columnNumber: 17
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
@@ -41488,7 +41515,7 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                     children: "Login"
                                 }, void 0, false, {
                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 20,
+                                    lineNumber: 19,
                                     columnNumber: 33
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -41497,7 +41524,7 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                     children: "Signup"
                                 }, void 0, false, {
                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 23,
+                                    lineNumber: 22,
                                     columnNumber: 33
                                 }, undefined)
                             ]
@@ -41509,7 +41536,16 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                     children: "Home"
                                 }, void 0, false, {
                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 29,
+                                    lineNumber: 28,
+                                    columnNumber: 33
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                    as: (0, _reactRouterDom.Link),
+                                    to: "/profile",
+                                    children: "Profile"
+                                }, void 0, false, {
+                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                    lineNumber: 31,
                                     columnNumber: 33
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -41517,38 +41553,34 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                     children: "Logout"
                                 }, void 0, false, {
                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 32,
+                                    lineNumber: 34,
                                     columnNumber: 33
                                 }, undefined)
                             ]
                         }, void 0, true)
                     }, void 0, false, {
                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 17,
+                        lineNumber: 16,
                         columnNumber: 21
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 16,
+                    lineNumber: 15,
                     columnNumber: 17
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-            lineNumber: 11,
+            lineNumber: 10,
             columnNumber: 13
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-        lineNumber: 10,
+        lineNumber: 9,
         columnNumber: 9
     }, undefined);
 };
 _c = NavigationBar;
-NavigationBar.propTypes = {
-    user: (0, _propTypesDefault.default).string.isRequired,
-    onLoggedOut: (0, _propTypesDefault.default).func.isRequired
-};
 var _c;
 $RefreshReg$(_c, "NavigationBar");
 
@@ -41557,6 +41589,194 @@ $RefreshReg$(_c, "NavigationBar");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","prop-types":"7wKI2","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./navigation-bar.scss":"dnXvl"}],"dnXvl":[function() {},{}]},["d8m58","1xC6H","d8Dch"], "d8Dch", "parcelRequire8cf1")
+},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./navigation-bar.scss":"dnXvl"}],"dnXvl":[function() {},{}],"2vVqf":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$3c12 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$3c12.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ProfileView", ()=>ProfileView);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _reactBootstrap = require("react-bootstrap");
+var _s = $RefreshSig$();
+const ProfileView = ({ user, token, movies })=>{
+    _s();
+    const [showEmailChange, toggleEmailChange] = (0, _react.useState)(false);
+    const [showBirthdayChange, toggleBirthdayChange] = (0, _react.useState)(false);
+    const [showPasswordChange, togglePasswordChange] = (0, _react.useState)(false);
+    const handleEmailClick = ()=>toggleEmailChange(!showEmailChange);
+    const handleBirthdayClick = ()=>toggleBirthdayChange(!showBirthdayChange);
+    const handlePasswordClick = ()=>togglePasswordChange(!showPasswordChange);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
+                style: {
+                    backgroundColor: "rgba(250,250,250, .8"
+                },
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
+                        style: {
+                            backgroundColor: "rgba(250,250,250,.3)",
+                            textAlign: "center",
+                            fontSize: 36
+                        },
+                        children: [
+                            user.username,
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                                fileName: "src/components/profile-view/profile-view.jsx",
+                                lineNumber: 21,
+                                columnNumber: 25
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Link, {
+                                children: "change"
+                            }, void 0, false, {
+                                fileName: "src/components/profile-view/profile-view.jsx",
+                                lineNumber: 21,
+                                columnNumber: 31
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/profile-view/profile-view.jsx",
+                        lineNumber: 20,
+                        columnNumber: 21
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
+                                        children: [
+                                            " Email: ",
+                                            user.email,
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                                                fileName: "src/components/profile-view/profile-view.jsx",
+                                                lineNumber: 25,
+                                                columnNumber: 60
+                                            }, undefined),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                                onClick: handleEmailClick,
+                                                children: "change"
+                                            }, void 0, false, {
+                                                fileName: "src/components/profile-view/profile-view.jsx",
+                                                lineNumber: 25,
+                                                columnNumber: 66
+                                            }, undefined)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/profile-view/profile-view.jsx",
+                                        lineNumber: 25,
+                                        columnNumber: 29
+                                    }, undefined),
+                                    showEmailChange && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {}, void 0, false)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/profile-view/profile-view.jsx",
+                                lineNumber: 24,
+                                columnNumber: 25
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
+                                        children: [
+                                            " Birthday: ",
+                                            user.birthday,
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                                                fileName: "src/components/profile-view/profile-view.jsx",
+                                                lineNumber: 34,
+                                                columnNumber: 66
+                                            }, undefined),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                                onClick: handleBirthdayClick,
+                                                children: "change"
+                                            }, void 0, false, {
+                                                fileName: "src/components/profile-view/profile-view.jsx",
+                                                lineNumber: 34,
+                                                columnNumber: 72
+                                            }, undefined)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/profile-view/profile-view.jsx",
+                                        lineNumber: 34,
+                                        columnNumber: 29
+                                    }, undefined),
+                                    showEmailChange && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {}, void 0, false)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/profile-view/profile-view.jsx",
+                                lineNumber: 33,
+                                columnNumber: 25
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
+                                        children: [
+                                            " Password: ",
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                                                fileName: "src/components/profile-view/profile-view.jsx",
+                                                lineNumber: 43,
+                                                columnNumber: 51
+                                            }, undefined),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                                onClick: handleBirthdayClick,
+                                                children: "change"
+                                            }, void 0, false, {
+                                                fileName: "src/components/profile-view/profile-view.jsx",
+                                                lineNumber: 43,
+                                                columnNumber: 57
+                                            }, undefined),
+                                            " "
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/profile-view/profile-view.jsx",
+                                        lineNumber: 43,
+                                        columnNumber: 29
+                                    }, undefined),
+                                    showPasswordChange && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {}, void 0, false)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/profile-view/profile-view.jsx",
+                                lineNumber: 42,
+                                columnNumber: 25
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/profile-view/profile-view.jsx",
+                        lineNumber: 23,
+                        columnNumber: 21
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/profile-view/profile-view.jsx",
+                lineNumber: 18,
+                columnNumber: 17
+            }, undefined)
+        }, void 0, false, {
+            fileName: "src/components/profile-view/profile-view.jsx",
+            lineNumber: 17,
+            columnNumber: 13
+        }, undefined)
+    }, void 0, false, {
+        fileName: "src/components/profile-view/profile-view.jsx",
+        lineNumber: 16,
+        columnNumber: 9
+    }, undefined);
+};
+_s(ProfileView, "w6r8+3Lr+iVvFRNI7q6woTVVpOU=");
+_c = ProfileView;
+var _c;
+$RefreshReg$(_c, "ProfileView");
+
+  $parcel$ReactRefreshHelpers$3c12.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-bootstrap":"3AD9A","react":"21dqq","prop-types":"7wKI2"}]},["d8m58","1xC6H","d8Dch"], "d8Dch", "parcelRequire8cf1")
 
 //# sourceMappingURL=index.b4b6dfad.js.map

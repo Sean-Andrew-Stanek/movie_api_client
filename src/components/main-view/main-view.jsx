@@ -11,12 +11,14 @@ import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
 import {NavigationBar} from '../navigation-bar/navigation-bar';
+import { ProfileView } from '../profile-view/profile-view';
 
 
 export const MainView = () => {
 
     const appWebsite = "https://my-movie-db-1195f41cc20f.herokuapp.com"
 
+    console.log(JSON.parse(localStorage.getItem("user")));
     //State Variables
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedToken = localStorage.getItem("token");
@@ -55,100 +57,142 @@ export const MainView = () => {
         });
     }, [token]);
 
-    return(
+    let navigationBar = 
+        <NavigationBar 
+            user = {user}
+            onLoggedOut={() => {
+                localStorage.clear();
+                setUser(null);
+                setToken(null);
+            }}
+        />
+    
+    let routeToSignup =
+        <Route 
+            path="/signup/"
+            element={
+                <>
+                    {user ? (
+                        <Navigate to="/" />
+                    ):(
+                        <Col md={5}>
+                            <SignupView 
+                                appWebsite={appWebsite}
+                            />
+                        </Col>
+                    )}
+                </>
+            }
+        />
+
+    let routeToLogin =
+        <Route
+            path="/login"
+            element={
+                <>
+                    {user ? (
+                        <Navigate to="/" />
+                    ):(
+                        <Col md={5}>
+                            <LoginView 
+                                onLoggedIn={
+                                    (user, token) => {
+                                        setUser(user);
+                                        setToken(token);
+                                    }
+                                }
+                                appWebsite={appWebsite}
+                            />
+                        </Col>
+                    )}
+                </>
+            }
+        />
+
+    let routeToProfile =
+        <Route
+            path="/profile"
+            element={
+                <>
+                    {!user ? (
+                        <Navigate to="/login" replace />
+                    ):(
+                        <Col md={6}>
+                            <ProfileView
+                                user={user}
+                                token={token}
+                                movies={movies}
+                            />
+                        </Col>
+                    )}
+                </>
+            }
+        />
+
+    let routeToMovie = 
+        <Route
+            path="/movies/:movieId"
+            element={
+                <>
+                    {!user ? (
+                        <Navigate to="/login" replace />
+                    ): movies.length === 0 ? (
+                        <Col>No movies have been loaded</Col>
+                    ):(
+                        <Col md={8}>
+                            <MovieView movies={movies} />
+                        </Col>
+                    )}
+                </>
+            }
+        />
+
+    let routeToHome = 
+        <Route
+            path="/"
+            element={
+                <>
+                    {!user ? (
+                        <Navigate to="/login" />
+                    ):loadingData ? (
+                        <div> Loading data </div>
+                    ):movies.length === 0 ? (
+                        <Col>No movies have been loaded</Col>
+                    ):(
+                        <>
+                            {movies.map((movie) => {
+                                return (
+                                    <Col className="mb-5" key={movie._id} md={3}>
+                                        <MovieCard 
+                                            movie={movie}
+                                        />
+                                    </Col>
+                                )
+                            })} 
+                        </>
+                    )}
+                </>
+            }
+        />
+
+
+
+    let returnCode =
         <>
-        <BrowserRouter>
-            <NavigationBar user 
-                onLoggedOut={() => {
-                    localStorage.clear;
-                    setUser(null);
-                    setToken(null);
-                }}
-            />
-            <Row className="justify-content-md-center mainRow"> 
-                <Routes>
-                    <Route 
-                        path="/signup/"
-                        element={
-                            <>
-                                {user ? (
-                                    <Navigate to="/" />
-                                ):(
-                                    <Col md={5}>
-                                        <SignupView 
-                                            appWebsite={appWebsite}
-                                        />
-                                    </Col>
-                                )}
-                            </>
-                        }
-                    />
-                    <Route
-                        path="/login"
-                        element={
-                            <>
-                                {user ? (
-                                    <Navigate to="/" />
-                                ):(
-                                    <Col md={5}>
-                                        <LoginView 
-                                            onLoggedIn={
-                                                (user, token) => {
-                                                    setUser(user);
-                                                    setToken(token);
-                                                }
-                                            }
-                                            appWebsite={appWebsite}
-                                        />
-                                    </Col>
-                                )}
-                            </>
-                        }
-                    />
-                    <Route
-                        path="/movies/:movieId"
-                        element={
-                            <>
-                                {!user ? (
-                                    <Navigate to="/login" replace />
-                                ): movies.length === 0 ? (
-                                    <Col>No movies have been loaded</Col>
-                                ):(
-                                    <Col md={8}>
-                                        <MovieView movies={movies} />
-                                    </Col>
-                                )}
-                            </>
-                        }
-                    />
-                    <Route
-                        path="/"
-                        element={
-                            <>
-                                {!user ? (
-                                    <Navigate to="/login" />
-                                ):loadingData ? (
-                                    <div> Loading data </div>
-                                ):movies.length === 0 ? (
-                                    <Col>No movies have been loaded</Col>
-                                ):(
-                                    <>
-                                        {movies.map((movie) => {
-                                            return (
-                                                <Col className="mb-5" key={movie._id} md={3}>
-                                                    <MovieCard 
-                                                        movie={movie}
-                                                    />
-                                                </Col>
-                                            )
-                                        })} 
-                                    </>
-                                )}
-                            </>
-                        }
-                    />
-                </Routes>
-            </Row>
-        </BrowserRouter></>
-)};
+            <BrowserRouter>
+                {navigationBar}
+                <Row className="justify-content-md-center mainRow"> 
+                    <Routes>
+                        {routeToSignup}
+                        {routeToLogin}
+                        {routeToProfile}
+                        {routeToMovie}
+                        {routeToHome}
+                    </Routes>
+                </Row>
+            </BrowserRouter>
+        </>
+    return returnCode;
+        
+};
 

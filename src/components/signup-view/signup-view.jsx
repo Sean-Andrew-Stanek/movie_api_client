@@ -6,7 +6,7 @@
 
 import {useState} from 'react';
 import PropTypes from "prop-types";
-import {Button, Form, Container, Row, Card} from 'react-bootstrap'
+import {Button, Form, Container, Row, Card} from 'react-bootstrap';
 
 export const SignupView = ({appWebsite}) => {
 
