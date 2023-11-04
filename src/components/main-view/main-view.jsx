@@ -25,7 +25,8 @@ export const MainView = () => {
     const [movies, setMovies] = useState([]);
     const[loadingData, setLoadingData] = useState(true);
 
-    console.log(user);
+    
+
     //retrieve all movie data from the db
     useEffect(() => {
 
@@ -49,12 +50,37 @@ export const MainView = () => {
             })
             setMovies(moviesFromAPI);
             setLoadingData(false);
-        })
-        .catch(err => {
+        }).catch(err => {
             console.log(err);
 
         });
     }, [token]);
+
+
+    const filterByGenre = (movie) => {
+        return(         
+                <Row>
+                    {movies.filter((a) => a.genre === movie.genre && a._id != movie._id)
+                        .map((movie) => {
+                        return (
+                                <>
+                                {
+                                    <Col className="mb-1" key={movie._id} md={4}>
+                                        <MovieCard 
+                                            movie={movie}
+                                            user={user}
+                                            updateUser={(user)=>{setUser(user)}} 
+                                            token={token}
+                                            appWebsite={appWebsite}
+                                        />
+                                    </Col>
+                                }
+                                </>
+                        )}
+                    )}
+                </Row>   
+        )
+    }
 
     let navigationBar = 
         <NavigationBar 
@@ -141,12 +167,17 @@ export const MainView = () => {
                         <Col>No movies have been loaded</Col>
                     ):(
                         <Col md={8}>
-                            <MovieView movies={movies} />
+                            <MovieView 
+                                movies={movies}
+                                filterByGenre={filterByGenre}
+                            />
                         </Col>
                     )}
                 </>
             }
         />
+
+
 
     let routeToHome = 
         <Route
@@ -160,17 +191,19 @@ export const MainView = () => {
                     ):movies.length === 0 ? (
                         <Col>No movies have been loaded</Col>
                     ):(
-                        <>
-                            {movies.map((movie) => {
-                                return (
-                                    <Col className="mb-5" key={movie._id} md={3}>
-                                        <MovieCard 
-                                            movie={movie}
-                                        />
-                                    </Col>
-                                )
-                            })} 
-                        </>
+                        movies.map((movie)=>{
+                            return(
+                                <Col className="mb-5" key={movie._id}  md={3}>
+                                    <MovieCard 
+                                        movie={movie}
+                                        user={user}
+                                        updateUser={(user)=>{setUser(user)}}
+                                        token={token}
+                                        appWebsite={appWebsite}
+                                    />
+                                </Col>                                
+                            )
+                        })
                     )}
                 </>
             }

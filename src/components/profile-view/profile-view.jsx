@@ -1,6 +1,8 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import PropTypes from "prop-types";
+import { MovieCard } from '../movie-card/movie-card';
 import {Button, Form, Container, Row, Card} from 'react-bootstrap'
+import Col from 'react-bootstrap/Col'
 
 export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
 
@@ -12,12 +14,14 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
     const handleEmailClick = () => toggleEmailChange(!showEmailChange);
     const handleBirthdayClick = () => toggleBirthdayChange(!showBirthdayChange);
     const handlePasswordClick = () => togglePasswordChange(!showPasswordChange);
-    const handleUsernameClick = () => toggleUsernameChange(!showPasswordChange);
+    const handleUsernameClick = () => toggleUsernameChange(!showUsernameChange);
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
+
+    const [favoriteMovieCount, setFavoriteMovieCount] = useState(user?user.favoriteMovies.length:[]);
         
     const data = {
         password:password,
@@ -25,6 +29,11 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
         email:email,
         birthday:birthday
     }
+
+
+
+    console.log(user.favoriteMovies.length + "   " + favoriteMovieCount)
+    console.log(user.favoriteMovies);
 
     /////
     //
@@ -36,11 +45,9 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
 
         return event =>{
             event.preventDefault();
-            console.log(field)
 
             let postData = {};
             postData[field] = data[field];
-            console.log(postData);
 
             if(!token){
                 return;
@@ -70,6 +77,12 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
         }
 
     };
+
+    const resetFavMovies = () => {
+        console.log("ding!")
+        setFavoriteMovieCount(user.favoriteMovies.length)
+        return <></>
+    }
 
     return(
         <Container>
@@ -193,6 +206,35 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
 
                 </Card>
             </Row>
+            <Row>
+                <h2>Favorite Movies</h2>
+            </Row>
+            {(favoriteMovieCount===user.favoriteMovies.length)?(
+                <Row>
+                    {movies.filter((movie) => user.favoriteMovies.includes(movie._id))
+                        .map((movie) => {
+                        return (
+                                <Col className="mb-1" key={movie._id} md={3}>
+                                    <MovieCard 
+                                        movie={movie}
+                                        user={user}
+                                        updateUser={(user)=>{user = user; updateUser(user)}}
+                                        token = {token}
+                                        appWebsite={appWebsite}
+                                        addFavMovie= {()=>{setFavoriteMovieCount(favoriteMovieCount+1)}}
+                                        remFavMovie= {()=>{setFavoriteMovieCount(favoriteMovieCount-1)}}
+                                    />
+                                </Col>
+                        );
+                    })}
+                </Row>
+            ):(favoriteMovieCount===0)?(
+                <Row>
+                    No movies found.
+                </Row>
+            ):(
+                resetFavMovies()
+            )}
         </Container> 
     );
 
