@@ -100,14 +100,15 @@ export const MainView = () => {
     }
 
     const filterByName = (input) => {
+
         //sets the displayed movies to any movie that the title or genre contains any part of the string.
-        setDisplayedMovies(movies.filter((movie) => movie.genre.name.contains(input) || movie.title.contains(input)));
+        setDisplayedMovies(movies.filter((movie) => movie.genre.toLowerCase().includes(input.toLowerCase()) || movie.title.toLowerCase().includes(input.toLowerCase())));
     }
 
     let navigationBar = 
         <NavigationBar 
             user = {user}
-            filterByName={filterByName(input)}
+            filterByName={filterByName}
             onLoggedOut={() => {
                 localStorage.clear();
                 setUser(null);
@@ -214,7 +215,7 @@ export const MainView = () => {
                     ):movies.length === 0 ? (
                         <Col>No movies have been loaded</Col>
                     ):(
-                        {renderedCards}
+                        renderedCards
                     )}
                 </>
             }

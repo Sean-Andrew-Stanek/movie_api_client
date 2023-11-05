@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
+import { useState } from 'react';
 
 
 import './navigation-bar.scss';
@@ -69,7 +70,7 @@ export const NavigationBar = ({user, filterByName, onLoggedOut}) => {
                                                 />
                                             </Col>
                                             <Col xs='auto'>
-                                                <Button type='submit' onClick={}>Search</Button>
+                                                <Button type='submit'>Search</Button>
                                             </Col>
                                         </Row>
                                     </Form>
