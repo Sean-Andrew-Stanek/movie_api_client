@@ -6,7 +6,7 @@
 
 import {useState} from 'react';
 import PropTypes from "prop-types";
-import {Button, Form, Container, Row, Card} from 'react-bootstrap'
+import {Button, Form, Container, Row, Card} from 'react-bootstrap';
 
 export const SignupView = ({appWebsite}) => {
 
@@ -25,7 +25,7 @@ export const SignupView = ({appWebsite}) => {
             email: email,
             birthday: birthday
         };
-        console.log(appWebsite+'/users');
+        
 
         fetch(appWebsite + '/users', {
             method: "POST",

@@ -25,8 +25,6 @@ export const LoginView = ( {onLoggedIn, appWebsite}) => {
             password: password
         }
 
-        console.log(JSON.stringify(data));
-
         fetch(appWebsite + '/login',  {
             method: "POST",
             headers: {
