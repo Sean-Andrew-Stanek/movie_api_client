@@ -5,9 +5,14 @@ import {Link} from "react-router-dom"
 
 import './movie-card.scss';
 
-export const MovieCard = ({movie, user, updateUser, token, appWebsite, addFavMovie, remFavMovie}) => {
+export const MovieCard = ({movie, user, updateUser, token, appWebsite, visibilityToggle}) => {
 
     const[isFavorite, setIsFavorite] = useState(user.favoriteMovies.includes(movie._id));
+    const [isVisible, setIsVisible] = useState(true)
+
+    const toggleVisibility = () => {
+        setIsVisible(!isVisible);
+    }
 
     const removeFavoriteMovie = (event) => {
         event.preventDefault();
@@ -28,8 +33,8 @@ export const MovieCard = ({movie, user, updateUser, token, appWebsite, addFavMov
                 localStorage.setItem('user', JSON.stringify(responseJSON));
                 updateUser(user);
                 setIsFavorite(false);
-                if(remFavMovie)
-                    remFavMovie();
+                if(visibilityToggle)
+                    setIsVisible(false);
                 console.log("successfully removed");
             }).catch((error)=>
                 console.log(error)
@@ -57,8 +62,8 @@ export const MovieCard = ({movie, user, updateUser, token, appWebsite, addFavMov
             localStorage.setItem('user', JSON.stringify(responseJSON));
             updateUser(user);
             setIsFavorite(true);
-            if(addFavMovie)
-                addFavMovie();
+            if(visibilityToggle)
+                setIsVisible(true);
         }).catch((error)=>
             console.log(error)
         );
@@ -66,34 +71,38 @@ export const MovieCard = ({movie, user, updateUser, token, appWebsite, addFavMov
     }
 
     return (
-        <Card className="h-100 cardContainer">
-            <Card.Img variant="top" className="cardImg" src={movie.image} />
-            <Card.Body className="pb-0">
-                <Container className="info mb-4">
-                    <Card.Title className="title">{movie.title}</Card.Title>
-                    <Card.Text className="genre">{movie.genre}</Card.Text>
-                </Container>
-                <Link tabIndex="-1" to={`/movies/${encodeURIComponent(movie._id)}`}>
-                    <Button className="navButton mb-0" variant="primary">
-                        Details
-                    </Button> 
-                </Link>
-                {
-                    (!isFavorite)?
-                    (
-                        <Button onClick={addFavoriteMovie} className="navButton mb-0">
-                            Favorite
-                        </Button> 
-                    ):(
-                        <Button onClick={removeFavoriteMovie} className="navButton mb-0">
-                            Unfavorite
-                        </Button> 
-                    )
-                }
-                
+        <>
+            {(isVisible) && (
+                <Card className="h-100 cardContainer">
+                    <Card.Img variant="top" className="cardImg" src={movie.image} />
+                    <Card.Body className="pb-0">
+                        <Container className="info mb-4">
+                            <Card.Title className="title">{movie.title}</Card.Title>
+                            <Card.Text className="genre">{movie.genre}</Card.Text>
+                        </Container>
+                        <Link tabIndex="-1" to={`/movies/${encodeURIComponent(movie._id)}`}>
+                            <Button className="navButton mb-0" variant="primary">
+                                Details
+                            </Button> 
+                        </Link>
+                        {
+                            (!isFavorite)?
+                            (
+                                <Button onClick={addFavoriteMovie} className="navButton mb-0">
+                                    Favorite
+                                </Button> 
+                            ):(
+                                <Button onClick={removeFavoriteMovie} className="navButton mb-0">
+                                    Unfavorite
+                                </Button> 
+                            )
+                        }
+                        
 
-            </Card.Body>
-        </Card>
+                    </Card.Body>
+                </Card>
+            )}
+        </>
     );
 };
 

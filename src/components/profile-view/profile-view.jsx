@@ -221,8 +221,7 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
                                         updateUser={(user)=>{user = user; updateUser(user)}}
                                         token = {token}
                                         appWebsite={appWebsite}
-                                        addFavMovie= {()=>{setFavoriteMovieCount(favoriteMovieCount+1)}}
-                                        remFavMovie= {()=>{setFavoriteMovieCount(favoriteMovieCount-1)}}
+                                        visibilityToggle={true}
                                     />
                                 </Col>
                         );
