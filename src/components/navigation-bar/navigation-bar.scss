@@ -10,3 +10,21 @@
 .bg-transparent-light a:hover{
     color: rgba(230,230,230,.8);
 }
+
+.navButton {
+    padding: 4px 10px 4px 10px;
+    color: rgba(240, 240, 240, .9);
+    background-color: rgba(130, 100, 200, 1);
+    border: 2px solid black;
+    border-radius: 1px;
+    cursor: pointer;
+}
+
+.navButton:hover {
+    background-color: rgba(20, 80, 180, 1);
+    transition: background-color .5s;
+}
+
+.add-border {
+    border: 2px white solid;
+}

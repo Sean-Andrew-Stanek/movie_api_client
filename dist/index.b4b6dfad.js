@@ -28228,6 +28228,7 @@ const MainView = ()=>{
     const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
     const [movies, setMovies] = (0, _react.useState)([]);
     const [loadingData, setLoadingData] = (0, _react.useState)(true);
+    const [displayedMovies, setDisplayedMovies] = (0, _react.useState)([]);
     //retrieve all movie data from the db
     (0, _react.useEffect)(()=>{
         if (!token) return;
@@ -28246,6 +28247,7 @@ const MainView = ()=>{
                 };
             });
             setMovies(moviesFromAPI);
+            setDisplayedMovies(moviesFromAPI);
             setLoadingData(false);
         }).catch((err)=>{
             console.log(err);
@@ -28253,6 +28255,30 @@ const MainView = ()=>{
     }, [
         token
     ]);
+    //All of the currently created movieCards
+    const renderedCards = displayedMovies.map((movie)=>{
+        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+            className: "mb-5",
+            md: 3,
+            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                movie: movie,
+                user: user,
+                updateUser: (user)=>{
+                    setUser(user);
+                },
+                token: token,
+                appWebsite: appWebsite
+            }, void 0, false, {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 66,
+                columnNumber: 21
+            }, undefined)
+        }, movie._id, false, {
+            fileName: "src/components/main-view/main-view.jsx",
+            lineNumber: 65,
+            columnNumber: 17
+        }, undefined);
+    });
     const filterByGenre = (movie)=>{
         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
             children: movies.filter((a)=>a.genre === movie.genre && a._id != movie._id).map((movie)=>{
@@ -28270,24 +28296,29 @@ const MainView = ()=>{
                             appWebsite: appWebsite
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 69,
+                            lineNumber: 86,
                             columnNumber: 41
                         }, undefined)
                     }, movie._id, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 68,
+                        lineNumber: 85,
                         columnNumber: 37
                     }, undefined)
                 }, void 0, false);
             })
         }, void 0, false, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 62,
+            lineNumber: 79,
             columnNumber: 17
         }, undefined);
     };
+    const filterByName = (input1)=>{
+        //sets the displayed movies to any movie that the title or genre contains any part of the string.
+        setDisplayedMovies(movies.filter((movie)=>movie.genre.name.contains(input1) || movie.title.contains(input1)));
+    };
     let navigationBar = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _navigationBar.NavigationBar), {
         user: user,
+        filterByName: filterByName(input),
         onLoggedOut: ()=>{
             localStorage.clear();
             setUser(null);
@@ -28295,7 +28326,7 @@ const MainView = ()=>{
         }
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 86,
+        lineNumber: 108,
         columnNumber: 9
     }, undefined);
     let routeToSignup = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28312,7 +28343,7 @@ const MainView = ()=>{
         }, void 0, false)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 96,
+        lineNumber: 119,
         columnNumber: 9
     }, undefined);
     let routeToLogin = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28333,7 +28364,7 @@ const MainView = ()=>{
         }, void 0, false)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 114,
+        lineNumber: 137,
         columnNumber: 9
     }, undefined);
     let routeToProfile = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28357,7 +28388,7 @@ const MainView = ()=>{
         }, void 0, false)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 138,
+        lineNumber: 161,
         columnNumber: 9
     }, undefined);
     let routeToMovie = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28378,7 +28409,7 @@ const MainView = ()=>{
         }, void 0, false)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 160,
+        lineNumber: 183,
         columnNumber: 9
     }, undefined);
     let routeToHome = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28390,25 +28421,13 @@ const MainView = ()=>{
                 children: " Loading data "
             }, void 0, false, void 0, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                 children: "No movies have been loaded"
-            }, void 0, false, void 0, void 0) : movies.map((movie)=>{
-                return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
-                    className: "mb-5",
-                    md: 3,
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                        movie: movie,
-                        user: user,
-                        updateUser: (user)=>{
-                            setUser(user);
-                        },
-                        token: token,
-                        appWebsite: appWebsite
-                    }, void 0, false, void 0, void 0)
-                }, movie._id, false, void 0, void 0);
-            })
+            }, void 0, false, void 0, void 0) : {
+                renderedCards
+            }
         }, void 0, false)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 183,
+        lineNumber: 206,
         columnNumber: 9
     }, undefined);
     let returnCode = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
@@ -28427,24 +28446,24 @@ const MainView = ()=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 219,
+                        lineNumber: 230,
                         columnNumber: 21
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 218,
+                    lineNumber: 229,
                     columnNumber: 17
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 216,
+            lineNumber: 227,
             columnNumber: 13
         }, undefined)
     }, void 0, false);
     return returnCode;
 };
-_s(MainView, "oIm77UiJ1EXZzju0L/XqJBK71yg=");
+_s(MainView, "b5rjNmlhbCOwGdDMeo+7Qoot4sE=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -48543,106 +48562,201 @@ parcelHelpers.export(exports, "NavigationBar", ()=>NavigationBar);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
+var _form = require("react-bootstrap/Form");
+var _formDefault = parcelHelpers.interopDefault(_form);
+var _row = require("react-bootstrap/Row");
+var _rowDefault = parcelHelpers.interopDefault(_row);
+var _button = require("react-bootstrap/Button");
+var _buttonDefault = parcelHelpers.interopDefault(_button);
+var _col = require("react-bootstrap/Col");
+var _colDefault = parcelHelpers.interopDefault(_col);
 var _navigationBarScss = require("./navigation-bar.scss");
 const NavigationBar = ({ user, onLoggedOut })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar), {
         className: "bg-transparent-light",
         expand: "lg",
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
-            children: [
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Brand, {
-                    style: {
-                        fontSize: "1.5rem"
-                    },
-                    as: (0, _reactRouterDom.Link),
-                    to: "/",
-                    children: "MovieAPI Demo"
-                }, void 0, false, {
-                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 11,
-                    columnNumber: 17
-                }, undefined),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Toggle, {
-                    "aria-controls": "basic-navbar-nav"
-                }, void 0, false, {
-                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 14,
-                    columnNumber: 17
-                }, undefined),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
-                    id: "basic-navbar-nav",
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav), {
-                        className: "me-auto",
-                        children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Brand, {
+                style: {
+                    fontSize: "1.5rem"
+                },
+                as: (0, _reactRouterDom.Link),
+                to: "/",
+                children: "MovieAPI Demo"
+            }, void 0, false, {
+                fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                lineNumber: 15,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Toggle, {
+                "aria-controls": "basic-navbar-nav"
+            }, void 0, false, {
+                fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                lineNumber: 18,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
+                id: "basic-navbar-nav",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav), {
+                    className: "ms-auto",
+                    children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                as: (0, _reactRouterDom.Link),
+                                to: "/login",
+                                children: "Login"
+                            }, void 0, false, {
+                                fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                lineNumber: 23,
+                                columnNumber: 29
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                as: (0, _reactRouterDom.Link),
+                                to: "/signup",
+                                children: "Signup"
+                            }, void 0, false, {
+                                fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                lineNumber: 26,
+                                columnNumber: 29
+                            }, undefined)
+                        ]
+                    }, void 0, true) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
                             children: [
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                    as: (0, _reactRouterDom.Link),
-                                    to: "/login",
-                                    children: "Login"
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                                    as: (0, _reactRouterDom.Link),
+                                                    to: "/",
+                                                    children: "Home"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                                    lineNumber: 36,
+                                                    columnNumber: 45
+                                                }, undefined)
+                                            }, void 0, false, {
+                                                fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                                lineNumber: 35,
+                                                columnNumber: 41
+                                            }, undefined),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                                    as: (0, _reactRouterDom.Link),
+                                                    to: "/profile",
+                                                    children: "Profile"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                                    lineNumber: 41,
+                                                    columnNumber: 45
+                                                }, undefined)
+                                            }, void 0, false, {
+                                                fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                                lineNumber: 40,
+                                                columnNumber: 41
+                                            }, undefined),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                                    onClick: onLoggedOut,
+                                                    children: "Logout"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                                    lineNumber: 46,
+                                                    columnNumber: 45
+                                                }, undefined)
+                                            }, void 0, false, {
+                                                fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                                lineNumber: 45,
+                                                columnNumber: 41
+                                            }, undefined)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                        lineNumber: 34,
+                                        columnNumber: 37
+                                    }, undefined)
                                 }, void 0, false, {
                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 19,
+                                    lineNumber: 33,
                                     columnNumber: 33
                                 }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                    as: (0, _reactRouterDom.Link),
-                                    to: "/signup",
-                                    children: "Signup"
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default), {
+                                        inline: "true",
+                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
+                                                        type: "text",
+                                                        placeholder: "Search",
+                                                        className: "mr-sm-2"
+                                                    }, void 0, false, {
+                                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                                        lineNumber: 56,
+                                                        columnNumber: 49
+                                                    }, undefined)
+                                                }, void 0, false, {
+                                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                                    lineNumber: 55,
+                                                    columnNumber: 45
+                                                }, undefined),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                                    xs: "auto",
+                                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                                                        type: "submit",
+                                                        children: "Search"
+                                                    }, void 0, false, {
+                                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                                        lineNumber: 59,
+                                                        columnNumber: 49
+                                                    }, undefined)
+                                                }, void 0, false, {
+                                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                                    lineNumber: 58,
+                                                    columnNumber: 45
+                                                }, undefined)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                            lineNumber: 54,
+                                            columnNumber: 41
+                                        }, undefined)
+                                    }, void 0, false, {
+                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                        lineNumber: 53,
+                                        columnNumber: 37
+                                    }, undefined)
                                 }, void 0, false, {
                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 22,
+                                    lineNumber: 52,
                                     columnNumber: 33
                                 }, undefined)
                             ]
-                        }, void 0, true) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-                            children: [
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                    as: (0, _reactRouterDom.Link),
-                                    to: "/",
-                                    children: "Home"
-                                }, void 0, false, {
-                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 28,
-                                    columnNumber: 33
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                    as: (0, _reactRouterDom.Link),
-                                    to: "/profile",
-                                    children: "Profile"
-                                }, void 0, false, {
-                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 31,
-                                    columnNumber: 33
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                    onClick: onLoggedOut,
-                                    children: "Logout"
-                                }, void 0, false, {
-                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 34,
-                                    columnNumber: 33
-                                }, undefined)
-                            ]
-                        }, void 0, true)
+                        }, void 0, true, {
+                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                            lineNumber: 32,
+                            columnNumber: 29
+                        }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 16,
-                        columnNumber: 21
+                        lineNumber: 31,
+                        columnNumber: 25
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 15,
+                    lineNumber: 20,
                     columnNumber: 17
                 }, undefined)
-            ]
-        }, void 0, true, {
-            fileName: "src/components/navigation-bar/navigation-bar.jsx",
-            lineNumber: 10,
-            columnNumber: 13
-        }, undefined)
-    }, void 0, false, {
+            }, void 0, false, {
+                fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                lineNumber: 19,
+                columnNumber: 13
+            }, undefined)
+        ]
+    }, void 0, true, {
         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-        lineNumber: 9,
+        lineNumber: 14,
         columnNumber: 9
     }, undefined);
 };
@@ -48655,7 +48769,7 @@ $RefreshReg$(_c, "NavigationBar");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","./navigation-bar.scss":"dnXvl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"dnXvl":[function() {},{}],"2vVqf":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","./navigation-bar.scss":"dnXvl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-bootstrap/Form":"iBZ80","react-bootstrap/Row":"cMC39","react-bootstrap/Col":"2L2I6","react-bootstrap/Button":"aPzUt"}],"dnXvl":[function() {},{}],"2vVqf":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$3c12 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

@@ -13293,4 +13293,22 @@ html, #root {
   color: #e6e6e6cc;
 }
 
+.navButton {
+  color: #f0f0f0e6;
+  cursor: pointer;
+  background-color: #8264c8;
+  border: 2px solid #000;
+  border-radius: 1px;
+  padding: 4px 10px;
+}
+
+.navButton:hover {
+  background-color: #1450b4;
+  transition: background-color .5s;
+}
+
+.add-border {
+  border: 2px solid #fff;
+}
+
 /*# sourceMappingURL=index.ce1d6491.css.map */

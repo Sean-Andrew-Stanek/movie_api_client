@@ -24,6 +24,7 @@ export const MainView = () => {
     const[token, setToken] = useState(storedToken ? storedToken : null);
     const [movies, setMovies] = useState([]);
     const[loadingData, setLoadingData] = useState(true);
+    const [displayedMovies, setDisplayedMovies] = useState([]);
 
     
 
@@ -49,6 +50,7 @@ export const MainView = () => {
                 }
             })
             setMovies(moviesFromAPI);
+            setDisplayedMovies(moviesFromAPI);
             setLoadingData(false);
         }).catch(err => {
             console.log(err);
@@ -56,6 +58,21 @@ export const MainView = () => {
         });
     }, [token]);
 
+    //All of the currently created movieCards
+    const renderedCards =                         
+        displayedMovies.map((movie)=>{
+            return(
+                <Col className="mb-5" key={movie._id}  md={3}>
+                    <MovieCard 
+                        movie={movie}
+                        user={user}
+                        updateUser={(user)=>{setUser(user)}}
+                        token={token}
+                        appWebsite={appWebsite}
+                    />
+                </Col>                                
+            )
+        })
 
     const filterByGenre = (movie) => {
         return(         
@@ -82,9 +99,15 @@ export const MainView = () => {
         )
     }
 
+    const filterByName = (input) => {
+        //sets the displayed movies to any movie that the title or genre contains any part of the string.
+        setDisplayedMovies(movies.filter((movie) => movie.genre.name.contains(input) || movie.title.contains(input)));
+    }
+
     let navigationBar = 
         <NavigationBar 
             user = {user}
+            filterByName={filterByName(input)}
             onLoggedOut={() => {
                 localStorage.clear();
                 setUser(null);
@@ -191,19 +214,7 @@ export const MainView = () => {
                     ):movies.length === 0 ? (
                         <Col>No movies have been loaded</Col>
                     ):(
-                        movies.map((movie)=>{
-                            return(
-                                <Col className="mb-5" key={movie._id}  md={3}>
-                                    <MovieCard 
-                                        movie={movie}
-                                        user={user}
-                                        updateUser={(user)=>{setUser(user)}}
-                                        token={token}
-                                        appWebsite={appWebsite}
-                                    />
-                                </Col>                                
-                            )
-                        })
+                        {renderedCards}
                     )}
                 </>
             }
