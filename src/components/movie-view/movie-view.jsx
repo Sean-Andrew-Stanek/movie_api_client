@@ -1,6 +1,11 @@
 import { Button, Card, Container} from 'react-bootstrap';
-import {Link} from "react-router-dom";
-import { useParams } from "react-router";
+import {Link} from 'react-router-dom';
+import { useParams } from 'react-router';
+
+import React from 'react';
+import PropTypes from 'prop-types';
+
+
 
 import './movie-view.scss';
 
@@ -18,18 +23,18 @@ export const MovieView = ({movies, filterByGenre}) => {
 
     return (
         <>
-            <Card className="cardContainer">
-                <Card.Img variant="top" className="mainCardImg" src={movie.image} />
-                <Card.Body className="pb-0">
-                    <Container className="info mb-4">
-                        <Card.Title className="title">Title: {movie.title}</Card.Title>
-                        <Card.Text className="genre">
+            <Card className='cardContainer'>
+                <Card.Img variant='top' className='mainCardImg' src={movie.image} alt={altText} />
+                <Card.Body className='pb-0'>
+                    <Container className='info mb-4'>
+                        <Card.Title className='title'>Title: {movie.title}</Card.Title>
+                        <Card.Text className='genre'>
                             Director: {movie.director}<br />
                             Genre: {movie.genre}                  
                         </Card.Text>
                     </Container>
                     <Link to={'/'}>
-                        <Button className="navButton mb-2" variant="primary">
+                        <Button className='navButton mb-2' variant='primary'>
                             Back
                         </Button> 
                     </Link>
@@ -41,4 +46,9 @@ export const MovieView = ({movies, filterByGenre}) => {
             </div>
         </>
     );
+};
+
+MovieView.propTypes = {
+    movies: PropTypes.array.isRequired,
+    filterByGenre: PropTypes.func.isRequired
 };

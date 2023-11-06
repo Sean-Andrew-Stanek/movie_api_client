@@ -5,6 +5,8 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 
 import './navigation-bar.scss';
@@ -16,22 +18,22 @@ export const NavigationBar = ({user, filterByName, onLoggedOut}) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         filterByName(searchText);
-    }
+    };
 
     return (
-        <Navbar className="bg-transparent-light" expand="lg">
-            <Navbar.Brand style={{fontSize:"1.5rem"}} as={Link} to="/">
+        <Navbar className='bg-transparent-light' expand='lg'>
+            <Navbar.Brand style={{fontSize:'1.5rem'}} as={Link} to='/'>
                 MovieAPI Demo
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="ms-auto">
+            <Navbar.Toggle aria-controls='basic-navbar-nav' />
+            <Navbar.Collapse id='basic-navbar-nav'>
+                <Nav className='ms-auto'>
                     {!user ? (
                         <>
-                            <Nav.Link as={Link} to="/login">
+                            <Nav.Link as={Link} to='/login'>
                                 Login
                             </Nav.Link>
-                            <Nav.Link as={Link} to="/signup">
+                            <Nav.Link as={Link} to='/signup'>
                                 Signup
                             </Nav.Link>
                         </>
@@ -41,12 +43,12 @@ export const NavigationBar = ({user, filterByName, onLoggedOut}) => {
                                 <Col>
                                     <Row>
                                         <Col>
-                                            <Nav.Link as={Link} to="/">
+                                            <Nav.Link as={Link} to='/'>
                                                 Home
                                             </Nav.Link>
                                         </Col>
                                         <Col>
-                                            <Nav.Link as={Link} to="/profile">
+                                            <Nav.Link as={Link} to='/profile'>
                                                 Profile
                                             </Nav.Link>                                
                                         </Col>
@@ -83,4 +85,13 @@ export const NavigationBar = ({user, filterByName, onLoggedOut}) => {
 
         </Navbar>
     );
+};
+
+NavigationBar.propTypes = {
+    user: PropTypes.shape ({
+        _id: PropTypes.string.isRequired,
+        favoriteMovies: PropTypes.array.isRequired    
+    }).isRequired,
+    filterByName: PropTypes.func.isRequired,
+    onLoggedOut: PropTypes.func.onLoggedOut
 };

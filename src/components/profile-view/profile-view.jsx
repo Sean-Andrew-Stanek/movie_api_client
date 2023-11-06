@@ -1,8 +1,9 @@
-import {useState, useEffect} from 'react';
-import PropTypes from "prop-types";
+import {useState} from 'react';
+import PropTypes from 'prop-types';
 import { MovieCard } from '../movie-card/movie-card';
-import {Button, Form, Container, Row, Card} from 'react-bootstrap'
-import Col from 'react-bootstrap/Col'
+import {Button, Form, Container, Row, Card} from 'react-bootstrap';
+import Col from 'react-bootstrap/Col';
+import React from 'react';
 
 export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
 
@@ -16,10 +17,10 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
     const handlePasswordClick = () => togglePasswordChange(!showPasswordChange);
     const handleUsernameClick = () => toggleUsernameChange(!showUsernameChange);
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [email, setEmail] = useState("");
-    const [birthday, setBirthday] = useState("");
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [birthday, setBirthday] = useState('');
 
     const [favoriteMovieCount, setFavoriteMovieCount] = useState(user?user.favoriteMovies.length:[]);
         
@@ -28,12 +29,7 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
         username:username,
         email:email,
         birthday:birthday
-    }
-
-
-
-    console.log(user.favoriteMovies.length + "   " + favoriteMovieCount)
-    console.log(user.favoriteMovies);
+    };
 
     /////
     //
@@ -53,13 +49,12 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
                 return;
             }
 
-            fetch(appWebsite+`/users/${encodeURIComponent(user._id)}`,
-                {
-                method: "PUT",
+            fetch(appWebsite+`/users/${encodeURIComponent(user._id)}`,{
+                method: 'PUT',
                 body: JSON.stringify(postData),
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json'
                 }
             }).then((response) => {
                 if(response.ok){
@@ -74,15 +69,14 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
             }).catch((error)=>
                 console.log(error)
             );
-        }
+        };
 
     };
 
     const resetFavMovies = () => {
-        console.log("ding!")
-        setFavoriteMovieCount(user.favoriteMovies.length)
-        return <></>
-    }
+        setFavoriteMovieCount(user.favoriteMovies.length);
+        return <></>;
+    };
 
     return(
         <Container>
@@ -92,41 +86,39 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
                     //Username as Title
                     }
                     <Card.Title style={{backgroundColor: 'rgba(250,250,250,.3)', textAlign: 'center', fontSize: 36}}>{user.username}
-                        </Card.Title>
+                    </Card.Title>
                     
                     <Card.Body>
                         <Container style={{textAlign:'center'}}>
                             <Button onClick={handleUsernameClick}>Change Username</Button></Container>
-                            {
-                                showUsernameChange &&
-                                    <Form onSubmit={handleSubmit('username')}>
-                                        <Form.Group controlId="formUsername">
-                                            <Form.Label>
-                                                Username:
-                                            </Form.Label>
-                                            <Form.Control
-                                                type='text'
-                                                value={username}
-                                                autoComplete = "username"
-                                                onChange={(e) => setUsername(e.target.value)}
-                                                required
-                                                minLength="3"
-                                            />
-                                        </Form.Group>
-                                            <Container className="text-center"> 
-                                                <Button className="navButton mt-2" variant="primary" type="submit">
-                                                    Submit
-                                                </Button>
-                                            </Container>
-                                    </Form>
-
-                            }
+                        {showUsernameChange &&
+                            <Form onSubmit={handleSubmit('username')}>
+                                <Form.Group controlId='formUsername'>
+                                    <Form.Label>
+                                        Username:
+                                    </Form.Label>
+                                    <Form.Control
+                                        type='text'
+                                        value={username}
+                                        autoComplete = 'username'
+                                        onChange={(e) => setUsername(e.target.value)}
+                                        required
+                                        minLength='3'
+                                    />
+                                </Form.Group>
+                                <Container className='text-center'> 
+                                    <Button className='navButton mt-2' variant='primary' type='submit'>
+                                        Submit
+                                    </Button>
+                                </Container>
+                            </Form>
+                        }
                         <Container>
                             <Card.Text> Email: {user.email}<br /><Button onClick={handleEmailClick}>change</Button></Card.Text>
                             {
                                 showEmailChange && 
                                     <Form onSubmit={handleSubmit('email')}>
-                                        <Form.Group controlId="formEmail">
+                                        <Form.Group controlId='formEmail'>
                                             
                                             <Form.Label>
                                                 Email:
@@ -135,16 +127,16 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
                                             <Form.Control
                                                 type='email'
                                                 value={email}
-                                                autoComplete = "email"
+                                                autoComplete = 'email'
                                                 onChange={(e) => setEmail(e.target.value)}
                                                 required
                                             />
                                         </Form.Group>                                            
-                                            <Container className="text-center"> 
-                                                <Button className="navButton mt-2" variant="primary" type="submit">
-                                                    Submit
-                                                </Button>
-                                            </Container>
+                                        <Container className='text-center'> 
+                                            <Button className='navButton mt-2' variant='primary' type='submit'>
+                                                Submit
+                                            </Button>
+                                        </Container>
 
                                     </Form>
                             }
@@ -155,19 +147,19 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
                             {     
                                 showBirthdayChange && 
                                     <Form onSubmit={handleSubmit('birthday')}>
-                                        <Form.Group controlId="formBirthday">
+                                        <Form.Group controlId='formBirthday'>
                                             <Form.Label>
                                                 Birthday:
                                             </Form.Label>
                                             <Form.Control
-                                                type="date"
+                                                type='date'
                                                 value={birthday}
                                                 onChange={(e) => setBirthday(e.target.value)}
                                                 required            
                                             />
                                             
-                                            <Container className="text-center"> 
-                                                <Button className="navButton mt-2" variant="primary" type="submit">
+                                            <Container className='text-center'> 
+                                                <Button className='navButton mt-2' variant='primary' type='submit'>
                                                     Submit
                                                 </Button>
                                             </Container>
@@ -178,29 +170,29 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
 
                         <Container>
                             <Card.Text> Password: <br /><Button onClick={handlePasswordClick}>change</Button> </Card.Text>
-                                {showPasswordChange && 
-                                    <Form onSubmit={handleSubmit('password')}>
-                                        <Form.Group controlId="formPassword">
-                                            <Form.Label>
-                                                Password:
-                                            </Form.Label>
-                                            <Form.Control
-                                                type='password'
-                                                value={password}
-                                                autoComplete = "new-password"
-                                                onChange={(e)=>setPassword(e.target.value)}
-                                                required
-                                                minLength="3"       
-                                            />
-                                            
-                                            <Container className="text-center"> 
-                                                <Button className="navButton mt-2" variant="primary" type="submit">
-                                                    Submit
-                                                </Button>
-                                            </Container>
-                                        </Form.Group>
-                                    </Form>
-                                }
+                            {showPasswordChange && 
+                                <Form onSubmit={handleSubmit('password')}>
+                                    <Form.Group controlId='formPassword'>
+                                        <Form.Label>
+                                            Password:
+                                        </Form.Label>
+                                        <Form.Control
+                                            type='password'
+                                            value={password}
+                                            autoComplete = 'new-password'
+                                            onChange={(e)=>setPassword(e.target.value)}
+                                            required
+                                            minLength='3'       
+                                        />
+                                        
+                                        <Container className='text-center'> 
+                                            <Button className='navButton mt-2' variant='primary' type='submit'>
+                                                Submit
+                                            </Button>
+                                        </Container>
+                                    </Form.Group>
+                                </Form>
+                            }
                         </Container>    
                     </Card.Body>
 
@@ -213,19 +205,19 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
                 <Row>
                     {movies.filter((movie) => user.favoriteMovies.includes(movie._id))
                         .map((movie) => {
-                        return (
-                                <Col className="mb-1" key={movie._id} md={3}>
+                            return (
+                                <Col className='mb-1' key={movie._id} md={3}>
                                     <MovieCard 
                                         movie={movie}
                                         user={user}
-                                        updateUser={(user)=>{user = user; updateUser(user)}}
+                                        updateUser={(user)=>{updateUser(user);}}
                                         token = {token}
                                         appWebsite={appWebsite}
                                         visibilityToggle={true}
                                     />
                                 </Col>
-                        );
-                    })}
+                            );
+                        })}
                 </Row>
             ):(favoriteMovieCount===0)?(
                 <Row>
@@ -238,4 +230,18 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
     );
 
 
-}
+};
+
+ProfileView.propTypes = {
+    updateUser: PropTypes.func.isRequired,
+    user: PropTypes.shape ({
+        _id: PropTypes.string.isRequired,
+        favoriteMovies: PropTypes.array.isRequired,
+        username: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        birthday: PropTypes.string.isRequired
+    }).isRequired,
+    token: PropTypes.string.isRequired,
+    movies: PropTypes.array.isRequired,
+    appWebsite: PropTypes.string.isRequired
+};

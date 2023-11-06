@@ -169,7 +169,7 @@ export const MainView = () => {
                         <Col md={10}>
                             <ProfileView
                                 user={user}
-                                updateUser={(user)=>{setUser(user)}}
+                                updateUser={(user)=>{setUser(user);}}
                                 token={token}
                                 movies={movies}
                                 appWebsite={appWebsite}
@@ -219,7 +219,7 @@ export const MainView = () => {
                     )}
                 </>
             }
-        />
+        />;
 
 
 
@@ -237,7 +237,7 @@ export const MainView = () => {
                     </Routes>
                 </Row>
             </BrowserRouter>
-        </>
+        </>;
     return returnCode;
         
 };

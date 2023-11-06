@@ -7,7 +7,6 @@ import './movie-card.scss';
 
 export const MovieCard = ({movie, user, updateUser, token, appWebsite, visibilityToggle}) => {
 
-    console.log(typeof token);
     const[isFavorite, setIsFavorite] = useState(user.favoriteMovies.includes(movie._id));
     const [isVisible, setIsVisible] = useState(true);
 
@@ -107,8 +106,9 @@ MovieCard.propTypes = {
         director: PropTypes.string,
         image: PropTypes.string.isRequired
     }).isRequired,
-    user: PropTypes.shape = ({
-        _id: PropTypes.string.isRequired        
+    user: PropTypes.shape ({
+        _id: PropTypes.string.isRequired,
+        favoriteMovies: PropTypes.array.isRequired    
     }).isRequired,
     updateUser: PropTypes.func.isRequired,
     token: PropTypes.string.isRequired,
