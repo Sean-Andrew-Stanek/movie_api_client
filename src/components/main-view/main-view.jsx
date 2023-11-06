@@ -1,10 +1,8 @@
 //Temporary Data
 import { useState, useEffect } from 'react';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
-
-import Movies from '../../mock-data/movies.json';
 
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
@@ -13,13 +11,15 @@ import { SignupView } from '../signup-view/signup-view';
 import {NavigationBar} from '../navigation-bar/navigation-bar';
 import { ProfileView } from '../profile-view/profile-view';
 
+import React from 'react';
+
 
 export const MainView = () => {
 
-    const appWebsite = "https://my-movie-db-1195f41cc20f.herokuapp.com"
+    const appWebsite = 'https://my-movie-db-1195f41cc20f.herokuapp.com';
     //State Variables
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    const storedToken = localStorage.getItem("token");
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const storedToken = localStorage.getItem('token');
     const[user, setUser] = useState(storedUser ? storedUser : null);
     const[token, setToken] = useState(storedToken ? storedToken : null);
     const [movies, setMovies] = useState([]);
@@ -35,75 +35,75 @@ export const MainView = () => {
             return;
         }
 
-        fetch(appWebsite + "/movies", {
+        fetch(appWebsite + '/movies', {
             headers: {Authorization: `Bearer ${token}`}
         })
-        .then((response) => response.json())
-        .then((data) => {
-            const moviesFromAPI = data.map((movie) =>{
-                return {
-                    _id: movie._id.toString(),
-                    title: movie.title,
-                    director: movie.director.name,
-                    genre: movie.genre.name,
-                    image: movie.image
-                }
-            })
-            setMovies(moviesFromAPI);
-            setDisplayedMovies(moviesFromAPI);
-            setLoadingData(false);
-        }).catch(err => {
-            console.log(err);
+            .then((response) => response.json())
+            .then((data) => {
+                const moviesFromAPI = data.map((movie) =>{
+                    return {
+                        _id: movie._id.toString(),
+                        title: movie.title,
+                        director: movie.director.name,
+                        genre: movie.genre.name,
+                        image: movie.image
+                    };
+                });
+                setMovies(moviesFromAPI);
+                setDisplayedMovies(moviesFromAPI);
+                setLoadingData(false);
+            }).catch(err => {
+                console.log(err);
 
-        });
+            });
     }, [token]);
 
     //All of the currently created movieCards
     const renderedCards =                         
         displayedMovies.map((movie)=>{
             return(
-                <Col className="mb-5" key={movie._id}  md={3}>
+                <Col className='mb-5' key={movie._id}  md={3}>
                     <MovieCard 
                         movie={movie}
                         user={user}
-                        updateUser={(user)=>{setUser(user)}}
+                        updateUser={(user)=>{setUser(user);}}
                         token={token}
                         appWebsite={appWebsite}
                     />
                 </Col>                                
-            )
-        })
+            );
+        });
 
     const filterByGenre = (movie) => {
         return(         
-                <Row>
-                    {movies.filter((a) => a.genre === movie.genre && a._id != movie._id)
-                        .map((movie) => {
+            <Row>
+                {movies.filter((a) => a.genre === movie.genre && a._id != movie._id)
+                    .map((movie) => {
                         return (
-                                <>
+                            <>
                                 {
-                                    <Col className="mb-1" key={movie._id} md={4}>
+                                    <Col className='mb-1' key={movie._id} md={4}>
                                         <MovieCard 
                                             movie={movie}
                                             user={user}
-                                            updateUser={(user)=>{setUser(user)}} 
+                                            updateUser={(user)=>{setUser(user);}} 
                                             token={token}
                                             appWebsite={appWebsite}
                                         />
                                     </Col>
                                 }
-                                </>
-                        )}
+                            </>
+                        );}
                     )}
-                </Row>   
-        )
-    }
+            </Row>   
+        );
+    };
 
     const filterByName = (input) => {
 
         //sets the displayed movies to any movie that the title or genre contains any part of the string.
         setDisplayedMovies(movies.filter((movie) => movie.genre.toLowerCase().includes(input.toLowerCase()) || movie.title.toLowerCase().includes(input.toLowerCase())));
-    }
+    };
 
     let navigationBar = 
         <NavigationBar 
@@ -114,15 +114,15 @@ export const MainView = () => {
                 setUser(null);
                 setToken(null);
             }}
-        />
+        />;
     
     let routeToSignup =
         <Route 
-            path="/signup/"
+            path='/signup/'
             element={
                 <>
                     {user ? (
-                        <Navigate to="/" />
+                        <Navigate to='/' />
                     ):(
                         <Col md={5}>
                             <SignupView 
@@ -132,15 +132,15 @@ export const MainView = () => {
                     )}
                 </>
             }
-        />
+        />;
 
     let routeToLogin =
         <Route
-            path="/login"
+            path='/login'
             element={
                 <>
                     {user ? (
-                        <Navigate to="/" />
+                        <Navigate to='/' />
                     ):(
                         <Col md={5}>
                             <LoginView 
@@ -156,15 +156,15 @@ export const MainView = () => {
                     )}
                 </>
             }
-        />
+        />;
 
     let routeToProfile =
         <Route
-            path="/profile"
+            path='/profile'
             element={
                 <>
                     {!user ? (
-                        <Navigate to="/login" replace />
+                        <Navigate to='/login' replace />
                     ):(
                         <Col md={10}>
                             <ProfileView
@@ -178,15 +178,15 @@ export const MainView = () => {
                     )}
                 </>
             }
-        />
+        />;
 
     let routeToMovie = 
         <Route
-            path="/movies/:movieId"
+            path='/movies/:movieId'
             element={
                 <>
                     {!user ? (
-                        <Navigate to="/login" replace />
+                        <Navigate to='/login' replace />
                     ): movies.length === 0 ? (
                         <Col>No movies have been loaded</Col>
                     ):(
@@ -199,17 +199,17 @@ export const MainView = () => {
                     )}
                 </>
             }
-        />
+        />;
 
 
 
     let routeToHome = 
         <Route
-            path="/"
+            path='/'
             element={
                 <>
                     {!user ? (
-                        <Navigate to="/login" />
+                        <Navigate to='/login' />
                     ):loadingData ? (
                         <div> Loading data </div>
                     ):movies.length === 0 ? (
@@ -227,7 +227,7 @@ export const MainView = () => {
         <>
             <BrowserRouter>
                 {navigationBar}
-                <Row className="justify-content-md-center mainRow"> 
+                <Row className='justify-content-md-center mainRow'> 
                     <Routes>
                         {routeToSignup}
                         {routeToLogin}

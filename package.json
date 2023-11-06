@@ -21,6 +21,8 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.9.3",
+    "eslint": "^8.53.0",
+    "eslint-plugin-react": "^7.33.2",
     "parcel": "^2.9.3",
     "process": "^0.11.10"
   }

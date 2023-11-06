@@ -1,18 +1,15 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { Button, Card, Container} from 'react-bootstrap';
-import React, {useState} from "react";
-import {Link} from "react-router-dom"
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 
 import './movie-card.scss';
 
 export const MovieCard = ({movie, user, updateUser, token, appWebsite, visibilityToggle}) => {
 
+    console.log(typeof token);
     const[isFavorite, setIsFavorite] = useState(user.favoriteMovies.includes(movie._id));
-    const [isVisible, setIsVisible] = useState(true)
-
-    const toggleVisibility = () => {
-        setIsVisible(!isVisible);
-    }
+    const [isVisible, setIsVisible] = useState(true);
 
     const removeFavoriteMovie = (event) => {
         event.preventDefault();
@@ -20,26 +17,25 @@ export const MovieCard = ({movie, user, updateUser, token, appWebsite, visibilit
         if(!token)
             return;
 
-            fetch(appWebsite+`/users/${user._id}/movies/${movie._id}`,
-            {
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((response)=>{
-            return response.json()
+        fetch(appWebsite+`/users/${user._id}/movies/${movie._id}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`
             }
-            ).then((responseJSON) => {
-                localStorage.setItem('user', JSON.stringify(responseJSON));
-                updateUser(user);
-                setIsFavorite(false);
-                if(visibilityToggle)
-                    setIsVisible(false);
-                console.log("successfully removed");
-            }).catch((error)=>
-                console.log(error)
-            );
-    }
+        }).then((response)=>{
+            return response.json();
+        }
+        ).then((responseJSON) => {
+            localStorage.setItem('user', JSON.stringify(responseJSON));
+            updateUser(user);
+            setIsFavorite(false);
+            if(visibilityToggle)
+                setIsVisible(false);
+            console.log('successfully removed');
+        }).catch((error)=>
+            console.log(error)
+        );
+    };
 
     const addFavoriteMovie = (event) => {
 
@@ -48,15 +44,14 @@ export const MovieCard = ({movie, user, updateUser, token, appWebsite, visibilit
         if(!token)
             return;
 
-        fetch(appWebsite+`/users/${user._id}/movies/${movie._id}`,
-        {
-            method: "POST",
+        fetch(appWebsite+`/users/${user._id}/movies/${movie._id}`,{
+            method: 'POST',
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }).then((response)=>{
             if(response.ok)
-                return response.json()
+                return response.json();
         }
         ).then((responseJSON) => {
             localStorage.setItem('user', JSON.stringify(responseJSON));
@@ -67,32 +62,30 @@ export const MovieCard = ({movie, user, updateUser, token, appWebsite, visibilit
         }).catch((error)=>
             console.log(error)
         );
-
-    }
+    };
 
     return (
         <>
             {(isVisible) && (
-                <Card className="h-100 cardContainer">
-                    <Card.Img variant="top" className="cardImg" src={movie.image} />
-                    <Card.Body className="pb-0">
-                        <Container className="info mb-4">
-                            <Card.Title className="title">{movie.title}</Card.Title>
-                            <Card.Text className="genre">{movie.genre}</Card.Text>
+                <Card className='h-100 cardContainer'>
+                    <Card.Img variant='top' className='cardImg' src={movie.image} />
+                    <Card.Body className='pb-0'>
+                        <Container className='info mb-4'>
+                            <Card.Title className='title'>{movie.title}</Card.Title>
+                            <Card.Text className='genre'>{movie.genre}</Card.Text>
                         </Container>
-                        <Link tabIndex="-1" to={`/movies/${encodeURIComponent(movie._id)}`}>
-                            <Button className="navButton mb-0" variant="primary">
+                        <Link tabIndex='-1' to={`/movies/${encodeURIComponent(movie._id)}`}>
+                            <Button className='navButton mb-0' variant='primary'>
                                 Details
                             </Button> 
                         </Link>
-                        {
-                            (!isFavorite)?
+                        {(!isFavorite)?
                             (
-                                <Button onClick={addFavoriteMovie} className="navButton mb-0">
+                                <Button onClick={addFavoriteMovie} className='navButton mb-0'>
                                     Favorite
                                 </Button> 
                             ):(
-                                <Button onClick={removeFavoriteMovie} className="navButton mb-0">
+                                <Button onClick={removeFavoriteMovie} className='navButton mb-0'>
                                     Unfavorite
                                 </Button> 
                             )
@@ -114,4 +107,11 @@ MovieCard.propTypes = {
         director: PropTypes.string,
         image: PropTypes.string.isRequired
     }).isRequired,
+    user: PropTypes.shape = ({
+        _id: PropTypes.string.isRequired        
+    }).isRequired,
+    updateUser: PropTypes.func.isRequired,
+    token: PropTypes.string.isRequired,
+    appWebsite: PropTypes.string.isRequired,
+    visibilityToggle: PropTypes.bool    
 };
