@@ -7,7 +7,7 @@ import React from 'react';
 import {useState} from 'react';
 /* import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'; */
-import {Button, Form, Container, Row, Card} from 'react-bootstrap'
+import {Button, Form, Container, Row, Card} from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
 
@@ -23,7 +23,7 @@ export const LoginView = ( {onLoggedIn, appWebsite}) => {
         const data = {
             username: username,
             password: password
-        }
+        };
 
         fetch(appWebsite + '/login',  {
             method: 'POST',
@@ -32,23 +32,23 @@ export const LoginView = ( {onLoggedIn, appWebsite}) => {
             },
             body: JSON.stringify(data)
         })
-        .then((response) => {
-            return response.json();
-        })
-        .then((resData) => {
-            console.log('Login response: ', resData);
-            if(resData.user){
-                //Save successful login to localStorage
-                localStorage.setItem('user', JSON.stringify(resData.user));
-                localStorage.setItem('token', resData.token);
-                onLoggedIn(resData.user, resData.token);
-            }else {
-                alert('No such user');
-            }
-        })
-        .catch((e) => {
-            alert('Something went wrong: ' + e);
-        });
+            .then((response) => {
+                return response.json();
+            })
+            .then((resData) => {
+                console.log('Login response: ', resData);
+                if(resData.user){
+                    //Save successful login to localStorage
+                    localStorage.setItem('user', JSON.stringify(resData.user));
+                    localStorage.setItem('token', resData.token);
+                    onLoggedIn(resData.user, resData.token);
+                }else {
+                    alert('No such user');
+                }
+            })
+            .catch((e) => {
+                alert('Something went wrong: ' + e);
+            });
 
     };
 
