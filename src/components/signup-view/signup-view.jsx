@@ -16,7 +16,7 @@ export const SignupView = ({appWebsite}) => {
     const [birthday, setBirthday] = useState("");
 
     const handleSubmit = (event) => {
-
+        
         event.preventDefault();
 
         const data = {
@@ -25,7 +25,6 @@ export const SignupView = ({appWebsite}) => {
             email: email,
             birthday: birthday
         };
-        
 
         fetch(appWebsite + '/users', {
             method: "POST",

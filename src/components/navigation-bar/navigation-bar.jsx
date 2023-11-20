@@ -91,7 +91,7 @@ NavigationBar.propTypes = {
     user: PropTypes.shape ({
         _id: PropTypes.string.isRequired,
         favoriteMovies: PropTypes.array.isRequired    
-    }).isRequired,
+    }),
     filterByName: PropTypes.func.isRequired,
-    onLoggedOut: PropTypes.func.onLoggedOut
+    onLoggedOut: PropTypes.func.isRequired
 };
