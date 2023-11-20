@@ -25,7 +25,6 @@ export const MainView = () => {
     const [movies, setMovies] = useState([]);
     const[loadingData, setLoadingData] = useState(true);
     const [displayedMovies, setDisplayedMovies] = useState([]);
-
     
 
     //retrieve all movie data from the db

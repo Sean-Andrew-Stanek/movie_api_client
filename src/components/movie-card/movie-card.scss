@@ -10,6 +10,8 @@
 .navButton:hover {
     background-color: rgba(20, 80, 180, 1);
     transition: background-color .5s;
+    border: 2px solid black;
+    transition: border .5s;
 }
 
 .cardContainer {
@@ -32,4 +34,15 @@
 .info {
     height: 50%;
     padding: 0;
+}
+
+@keyframes loadingColor {
+    0%  {background-color: rgba(20, 80, 180, 1);}
+    50% {background-color: rgba(130, 100, 200, 1);}
+    100%{background-color: rgba(20, 80, 180, 1);}
+}
+
+.buttonLoading {
+    background-color: rgba(20, 80, 180, 1);
+    animation: loadingColor 1s infinite linear;
 }

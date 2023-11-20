@@ -5,6 +5,8 @@ import {Button, Form, Container, Row, Card} from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import React from 'react';
 
+import './profile-view.scss';
+
 export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
 
     const [showEmailChange, toggleEmailChange] = useState(false);

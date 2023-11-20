@@ -36,7 +36,6 @@ export const LoginView = ( {onLoggedIn, appWebsite}) => {
                 return response.json();
             })
             .then((resData) => {
-                console.log('Login response: ', resData);
                 if(resData.user){
                     //Save successful login to localStorage
                     localStorage.setItem('user', JSON.stringify(resData.user));
