@@ -13223,7 +13223,8 @@ html, #root {
 
 .navButton:hover {
   background-color: #1450b4;
-  transition: background-color .5s;
+  border: 2px solid #000;
+  transition: border .5s;
 }
 
 .cardContainer {
@@ -13246,6 +13247,25 @@ html, #root {
 .info {
   height: 50%;
   padding: 0;
+}
+
+@keyframes loadingColor {
+  0% {
+    background-color: #1450b4;
+  }
+
+  50% {
+    background-color: #8264c8;
+  }
+
+  100% {
+    background-color: #1450b4;
+  }
+}
+
+.buttonLoading {
+  background-color: #1450b4;
+  animation: 1s linear infinite loadingColor;
 }
 
 .navButton {
