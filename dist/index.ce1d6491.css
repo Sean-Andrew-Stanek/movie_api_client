@@ -13311,4 +13311,8 @@ html, #root {
   border: 2px solid #fff;
 }
 
+.card-title a {
+  font-size: 24px;
+}
+
 /*# sourceMappingURL=index.ce1d6491.css.map */
