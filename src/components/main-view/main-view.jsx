@@ -61,7 +61,7 @@ export const MainView = () => {
     const renderedCards =                         
         displayedMovies.map((movie)=>{
             return(
-                <Col className='mb-5' key={movie._id}  md={3}>
+                <Col className='mb-5' key={movie._id}  md={3} sm={4} xs={6}>
                     <MovieCard 
                         movie={movie}
                         user={user}

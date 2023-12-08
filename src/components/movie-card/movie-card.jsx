@@ -9,23 +9,23 @@ export const MovieCard = ({movie, user, updateUser, token, appWebsite, visibilit
 
     const[isFavorite, setIsFavorite] = useState(user.favoriteMovies.includes(movie._id));
     const [isVisible, setIsVisible] = useState(true);
-    const [userFavorites, setUserFavorites] = useState(user.favoriteMovies);
     const[isLoading, setIsLoading] = useState(false);
     
     useEffect(() => {
         setIsFavorite(user.favoriteMovies.includes(movie._id));
-    }, [`${userFavorites}`]);
+    }, [user.favoriteMovies, movie._id]);
 
     const removeFavoriteMovie = (event) => {
+
         event.preventDefault();
 
-        if(!token)
+        if(!token || isLoading)
             return;
 
-        //Due to high latency, I'd like to later look into React's new useOptimistic (if it goes past experimental)
-        //Possibly just make our own optimistic code
-        //Maybe change clickable to false (user can "click" to their heart's content)
-        //CSS animation for while it is adding / deleting?
+
+        setIsFavorite(false);
+        if(visibilityToggle)
+            setIsVisible(false);
 
         setIsLoading(true);
 
@@ -40,14 +40,10 @@ export const MovieCard = ({movie, user, updateUser, token, appWebsite, visibilit
         ).then((responseJSON) => {
             localStorage.setItem('user', JSON.stringify(responseJSON));
             updateUser(responseJSON);
-            setUserFavorites(user.favoriteMovies);
-            if(visibilityToggle)
-                setIsVisible(false);
             setIsLoading(false);
         }).catch((error)=>
             console.log(error)
         );
-
 
     };
 
@@ -55,8 +51,10 @@ export const MovieCard = ({movie, user, updateUser, token, appWebsite, visibilit
 
         event.preventDefault();
 
-        if(!token)
+        if(!token || isLoading)
             return;
+
+        setIsFavorite(true);
 
         setIsLoading(true);
 
@@ -72,8 +70,6 @@ export const MovieCard = ({movie, user, updateUser, token, appWebsite, visibilit
         ).then((responseJSON) => {
             localStorage.setItem('user', JSON.stringify(responseJSON));
             updateUser(responseJSON);
-            //setIsFavorite(true);
-            setUserFavorites(user.favoriteMovies);
             if(visibilityToggle)
                 setIsVisible(true);
             setIsLoading(false);
@@ -87,7 +83,7 @@ export const MovieCard = ({movie, user, updateUser, token, appWebsite, visibilit
             {(isVisible) && (
                 <Card className='h-100 cardContainer'>
                     <Card.Img variant='top' className='cardImg' src={movie.image} />
-                    <Card.Body className='pb-0'>
+                    <Card.Body className='pb-1'>
                         <Container className='info mb-4'>
                             <Card.Title className='title'>{movie.title}</Card.Title>
                             <Card.Text className='genre'>{movie.genre}</Card.Text>
@@ -109,8 +105,6 @@ export const MovieCard = ({movie, user, updateUser, token, appWebsite, visibilit
                                 </Button> 
                             )
                         }
-                        
-
                     </Card.Body>
                 </Card>
             )}

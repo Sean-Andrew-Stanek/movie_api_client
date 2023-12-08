@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { MovieCard } from '../movie-card/movie-card';
 import {Button, Form, Container, Row, Card} from 'react-bootstrap';
@@ -32,6 +32,11 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
         email:email,
         birthday:birthday
     };
+    
+    useEffect(() => {
+        setFavoriteMovieCount(user.favoriteMovies.length);
+    }, [user.favoriteMovies.length]);
+    
 
     /////
     //
@@ -203,7 +208,7 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
             <Row>
                 <h2>Favorite Movies</h2>
             </Row>
-            {(favoriteMovieCount===user.favoriteMovies.length)?(
+            {(favoriteMovieCount>0)?(
                 <Row>
                     {movies.filter((movie) => user.favoriteMovies.includes(movie._id))
                         .map((movie) => {

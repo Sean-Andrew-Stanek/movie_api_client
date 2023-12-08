@@ -1,3 +1,4 @@
+
 .navButton {
     padding: 4px 10px 4px 10px;
     color: rgba(240, 240, 240, .9);
@@ -27,8 +28,11 @@
 }
 
 .cardImg {
-    height: 25vw;
-    padding: 3px;
+    box-sizing: border-box;
+    border: solid black 2px;
+    margin: 3px auto;
+    width: 97%;
+    height:auto;
 }
 
 .info {
