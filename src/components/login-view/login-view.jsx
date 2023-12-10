@@ -5,8 +5,6 @@
 //////////
 import React from 'react';
 import {useState} from 'react';
-/* import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form'; */
 import {Button, Form, Container, Row, Card} from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
@@ -36,8 +34,10 @@ export const LoginView = ( {onLoggedIn, appWebsite}) => {
                 return response.json();
             })
             .then((resData) => {
+                console.log(resData);
                 if(resData.user){
                     //Save successful login to localStorage
+                    console.log('successful');
                     localStorage.setItem('user', JSON.stringify(resData.user));
                     localStorage.setItem('token', resData.token);
                     onLoggedIn(resData.user, resData.token);
