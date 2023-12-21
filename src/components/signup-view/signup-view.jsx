@@ -5,15 +5,16 @@
 //////////
 
 import {useState} from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import {Button, Form, Container, Row, Card} from 'react-bootstrap';
+import React from 'react';
 
 export const SignupView = ({appWebsite}) => {
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [email, setEmail] = useState("");
-    const [birthday, setBirthday] = useState("");
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [birthday, setBirthday] = useState('');
 
     const handleSubmit = (event) => {
         
@@ -27,10 +28,10 @@ export const SignupView = ({appWebsite}) => {
         };
 
         fetch(appWebsite + '/users', {
-            method: "POST",
+            method: 'POST',
             body: JSON.stringify(data),
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
             }
         }).then((response) => {
             if(response.ok){
@@ -49,61 +50,61 @@ export const SignupView = ({appWebsite}) => {
                     <Card.Title style={{textAlign: 'center', fontSize: 36}}>Sign Up</Card.Title>
                     <Card.Body>
                         <Form onSubmit={handleSubmit}>
-                            <Form.Group controlId="formUsername">
+                            <Form.Group controlId='formUsername'>
                                 <Form.Label>
                                     Username:
                                 </Form.Label>
                                 <Form.Control
                                     type='text'
                                     value={username}
-                                    autoComplete = "username"
+                                    autoComplete = 'username'
                                     onChange={(e) => setUsername(e.target.value)}
                                     required
-                                    minLength="3"
+                                    minLength='3'
                                 />
                             </Form.Group>
 
-                            <Form.Group controlId="formPassword">
+                            <Form.Group controlId='formPassword'>
                                 <Form.Label>
                                     Password:
                                 </Form.Label>
                                 <Form.Control
                                     type='password'
                                     value={password}
-                                    autoComplete = "new-password"
+                                    autoComplete = 'new-password'
                                     onChange={(e)=>setPassword(e.target.value)}
                                     required
-                                    minLength="3"       
+                                    minLength='3'       
                                 />
                             </Form.Group>
 
-                            <Form.Group controlId="formEmail">
+                            <Form.Group controlId='formEmail'>
                                 <Form.Label>
                                     Email:
                                 </Form.Label>
                                 <Form.Control
-                                    type="email"
+                                    type='email'
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
-                                    minLength="3"            
+                                    minLength='3'            
                                 />
                             </Form.Group>
 
-                            <Form.Group controlId="formBirthday">
+                            <Form.Group controlId='formBirthday'>
                                 <Form.Label>
                                     Birthday:
                                 </Form.Label>
                                 <Form.Control
-                                    type="date"
+                                    type='date'
                                     value={birthday}
                                     onChange={(e) => setBirthday(e.target.value)}
                                     required            
                                 />
                             </Form.Group>            
 
-                            <Container className="text-center"> 
-                                <Button className="navButton mt-2" variant="primary" type="submit">
+                            <Container className='text-center'> 
+                                <Button className='navButton mt-2' variant='primary' type='submit'>
                                     Submit
                                 </Button>
                             </Container>
