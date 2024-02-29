@@ -13236,7 +13236,8 @@ html, #root {
 .cardContainer:hover {
   color: #c8c8c8;
   background-color: #142850;
-  transition: background-color .5s;
+  transition: transform .5s, background-color .5s;
+  transform: scale(1.01);
 }
 
 .cardImg {

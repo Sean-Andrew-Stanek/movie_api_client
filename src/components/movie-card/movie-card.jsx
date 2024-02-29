@@ -94,6 +94,9 @@ export const MovieCard = ({movie, filterByGenre, user, updateUser, token, appWeb
                     <Card.Title className='title'>{movie.title}</Card.Title>
                     <Card.Text className='genre'>{movie.genre}</Card.Text>
                 </Container>
+                <Button onClick={handleOpenModal} className='navButton'>
+                    Details
+                </Button>
                 {(!isFavorite)?
                     (
                         <Button onClick={addFavoriteMovie} className={isLoading?'buttonLoading mb-0':'navButton mb-0'}>
