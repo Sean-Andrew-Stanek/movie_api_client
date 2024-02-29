@@ -68,8 +68,10 @@ export const MainView = () => {
                                     <Col className='mb-1' key={movie._id} md={4}>
                                         <MovieCard 
                                             movie={movie}
+                                            movies={movies}
+                                            filterByGenre={filterByGenre}
                                             user={user}
-                                            updateUser={(user)=>{setUser(user);}} 
+                                            updateUser={(user)=>{setUser(user);}}
                                             token={token}
                                             appWebsite={appWebsite}
                                         />
@@ -82,8 +84,8 @@ export const MainView = () => {
         );
     };
 
-        //All of the currently created movieCards
-        const renderedCards =                         
+    //All of the currently created movieCards
+    const renderedCards =                         
         displayedMovies.map((movie)=>{
             return(
                 <Col className='mb-5' key={movie._id}  md={3} sm={4} xs={6}>
@@ -174,6 +176,7 @@ export const MainView = () => {
                                 token={token}
                                 movies={movies}
                                 appWebsite={appWebsite}
+                                filterByGenre={filterByGenre}
                             />
                         </Col>
                     )}
@@ -233,7 +236,6 @@ export const MainView = () => {
                         {routeToSignup}
                         {routeToLogin}
                         {routeToProfile}
-                        {/* {routeToMovie} */}
                         {routeToHome}
                     </Routes>
                 </Row>

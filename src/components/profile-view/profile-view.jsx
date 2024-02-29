@@ -7,7 +7,7 @@ import React from 'react';
 
 import './profile-view.scss';
 
-export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
+export const ProfileView = ({user, updateUser, token, movies, appWebsite, filterByGenre}) => {
 
     const [showEmailChange, toggleEmailChange] = useState(false);
     const [showBirthdayChange, toggleBirthdayChange] = useState(false);
@@ -251,5 +251,6 @@ ProfileView.propTypes = {
     }).isRequired,
     token: PropTypes.string.isRequired,
     movies: PropTypes.array.isRequired,
-    appWebsite: PropTypes.string.isRequired
+    appWebsite: PropTypes.string.isRequired,
+    filterByGenre: PropTypes.func.isRequired,
 };

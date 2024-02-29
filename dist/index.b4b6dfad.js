@@ -28263,6 +28263,8 @@ const MainView = ()=>{
                         md: 4,
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                             movie: movie,
+                            movies: movies,
+                            filterByGenre: filterByGenre,
                             user: user,
                             updateUser: (user)=>{
                                 setUser(user);
@@ -28306,12 +28308,12 @@ const MainView = ()=>{
                 appWebsite: appWebsite
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 90,
+                lineNumber: 92,
                 columnNumber: 21
             }, undefined)
         }, movie._id, false, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 89,
+            lineNumber: 91,
             columnNumber: 17
         }, undefined);
     });
@@ -28329,7 +28331,7 @@ const MainView = ()=>{
         }
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 110,
+        lineNumber: 112,
         columnNumber: 9
     }, undefined);
     let routeToSignup = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28346,7 +28348,7 @@ const MainView = ()=>{
         }, void 0, false)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 121,
+        lineNumber: 123,
         columnNumber: 9
     }, undefined);
     let routeToLogin = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28367,7 +28369,7 @@ const MainView = ()=>{
         }, void 0, false)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 139,
+        lineNumber: 141,
         columnNumber: 9
     }, undefined);
     let routeToProfile = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28385,13 +28387,14 @@ const MainView = ()=>{
                     },
                     token: token,
                     movies: movies,
-                    appWebsite: appWebsite
+                    appWebsite: appWebsite,
+                    filterByGenre: filterByGenre
                 }, void 0, false, void 0, void 0)
             }, void 0, false, void 0, void 0)
         }, void 0, false)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 163,
+        lineNumber: 165,
         columnNumber: 9
     }, undefined);
     /*     let routeToMovie = 
@@ -28426,7 +28429,7 @@ const MainView = ()=>{
         }, void 0, false)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 208,
+        lineNumber: 211,
         columnNumber: 9
     }, undefined);
     let returnCode = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
@@ -28444,18 +28447,18 @@ const MainView = ()=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 232,
+                        lineNumber: 235,
                         columnNumber: 21
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 231,
+                    lineNumber: 234,
                     columnNumber: 17
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 229,
+            lineNumber: 232,
             columnNumber: 13
         }, undefined)
     }, void 0, false);
@@ -48887,7 +48890,7 @@ var _colDefault = parcelHelpers.interopDefault(_col);
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _profileViewScss = require("./profile-view.scss");
 var _s = $RefreshSig$();
-const ProfileView = ({ user, updateUser, token, movies, appWebsite })=>{
+const ProfileView = ({ user, updateUser, token, movies, appWebsite, filterByGenre })=>{
     _s();
     const [showEmailChange, toggleEmailChange] = (0, _react.useState)(false);
     const [showBirthdayChange, toggleBirthdayChange] = (0, _react.useState)(false);
@@ -49372,7 +49375,8 @@ ProfileView.propTypes = {
     }).isRequired,
     token: (0, _propTypesDefault.default).string.isRequired,
     movies: (0, _propTypesDefault.default).array.isRequired,
-    appWebsite: (0, _propTypesDefault.default).string.isRequired
+    appWebsite: (0, _propTypesDefault.default).string.isRequired,
+    filterByGenre: (0, _propTypesDefault.default).func.isRequired
 };
 var _c;
 $RefreshReg$(_c, "ProfileView");
