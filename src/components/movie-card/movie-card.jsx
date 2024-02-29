@@ -96,12 +96,6 @@ export const MovieCard = ({movie, movies, filterByGenre, user, updateUser, token
                     <Card.Title className='title'>{movie.title}</Card.Title>
                     <Card.Text className='genre'>{movie.genre}</Card.Text>
                 </Container>
-                <Link tabIndex='-1' to={`/movies/${encodeURIComponent(movie._id)}`}>
-                    <Button 
-                        className='navButton mb-0' variant='primary'>
-                        Details
-                    </Button> 
-                </Link>
                 {(!isFavorite)?
                     (
                         <Button onClick={addFavoriteMovie} className={isLoading?'buttonLoading mb-0':'navButton mb-0'}>

@@ -34936,30 +34936,13 @@ const MovieCard = ({ movie, movies, filterByGenre, user, updateUser, token, appW
                         lineNumber: 95,
                         columnNumber: 17
                     }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                        tabIndex: "-1",
-                        to: `/movies/${encodeURIComponent(movie._id)}`,
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                            className: "navButton mb-0",
-                            variant: "primary",
-                            children: "Details"
-                        }, void 0, false, {
-                            fileName: "src/components/movie-card/movie-card.jsx",
-                            lineNumber: 100,
-                            columnNumber: 21
-                        }, undefined)
-                    }, void 0, false, {
-                        fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 99,
-                        columnNumber: 17
-                    }, undefined),
                     !isFavorite ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                         onClick: addFavoriteMovie,
                         className: isLoading ? "buttonLoading mb-0" : "navButton mb-0",
                         children: "Favorite"
                     }, void 0, false, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 107,
+                        lineNumber: 101,
                         columnNumber: 25
                     }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                         onClick: removeFavoriteMovie,
@@ -34967,7 +34950,7 @@ const MovieCard = ({ movie, movies, filterByGenre, user, updateUser, token, appW
                         children: "Unfavorite"
                     }, void 0, false, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 111,
+                        lineNumber: 105,
                         columnNumber: 25
                     }, undefined)
                 ]
@@ -34992,12 +34975,12 @@ const MovieCard = ({ movie, movies, filterByGenre, user, updateUser, token, appW
                     children: movie.title
                 }, void 0, false, {
                     fileName: "src/components/movie-card/movie-card.jsx",
-                    lineNumber: 122,
+                    lineNumber: 116,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 121,
+                lineNumber: 115,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Body, {
@@ -35006,18 +34989,18 @@ const MovieCard = ({ movie, movies, filterByGenre, user, updateUser, token, appW
                     filterByGenre: filterByGenre
                 }, void 0, false, {
                     fileName: "src/components/movie-card/movie-card.jsx",
-                    lineNumber: 125,
+                    lineNumber: 119,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 124,
+                lineNumber: 118,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/movie-card/movie-card.jsx",
-        lineNumber: 120,
+        lineNumber: 114,
         columnNumber: 9
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
