@@ -10,6 +10,7 @@ export const MovieCard = ({movie, user, updateUser, token, appWebsite, visibilit
     const[isFavorite, setIsFavorite] = useState(user.favoriteMovies.includes(movie._id));
     const [isVisible, setIsVisible] = useState(true);
     const[isLoading, setIsLoading] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     
     useEffect(() => {
         setIsFavorite(user.favoriteMovies.includes(movie._id));
@@ -76,6 +77,14 @@ export const MovieCard = ({movie, user, updateUser, token, appWebsite, visibilit
         }).catch((error)=>
             console.log(error)
         );
+    };
+
+    const handleOpenModal = () => {
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
     };
 
     return (
