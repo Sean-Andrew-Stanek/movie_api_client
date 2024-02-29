@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import { Button, Card, Container} from 'react-bootstrap';
+import { Button, Card, Container, Modal} from 'react-bootstrap';
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
+import { MovieView } from '../movie-view/movie-view';
 
 import './movie-card.scss';
 
@@ -87,35 +88,55 @@ export const MovieCard = ({movie, user, updateUser, token, appWebsite, visibilit
         setShowModal(false);
     };
 
+    const cardSubComponent =
+        <Card className='h-100 cardContainer'>
+            <Card.Img variant='top' className='cardImg' src={movie.image} onClick={handleOpenModal}/>
+            <Card.Body className='pb-1'>
+                <Container className='info mb-4'>
+                    <Card.Title className='title'>{movie.title}</Card.Title>
+                    <Card.Text className='genre'>{movie.genre}</Card.Text>
+                </Container>
+                <Link tabIndex='-1' to={`/movies/${encodeURIComponent(movie._id)}`}>
+                    <Button 
+                        className='navButton mb-0' variant='primary'>
+                        Details
+                    </Button> 
+                </Link>
+                {(!isFavorite)?
+                    (
+                        <Button onClick={addFavoriteMovie} className={isLoading?'buttonLoading mb-0':'navButton mb-0'}>
+                            Favorite
+                        </Button> 
+                    ):(
+                        <Button onClick={removeFavoriteMovie} className={isLoading?'buttonLoading mb-0':'navButton mb-0'}>
+                            Unfavorite
+                        </Button> 
+                    )
+                }
+            </Card.Body>
+        </Card>;
+
+    const modalSubComponent = 
+        <Modal show={showModal} onHide={handleCloseModal}>
+            <Modal.Header closeButton>
+                <Modal.Title>{movie.title}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <MovieView 
+                    movies={movies}
+                    filterByGenre={filterByGenre}
+                />
+            </Modal.Body>
+
+        </Modal>;
+
     return (
         <>
             {(isVisible) && (
-                <Card className='h-100 cardContainer'>
-                    <Card.Img variant='top' className='cardImg' src={movie.image} />
-                    <Card.Body className='pb-1'>
-                        <Container className='info mb-4'>
-                            <Card.Title className='title'>{movie.title}</Card.Title>
-                            <Card.Text className='genre'>{movie.genre}</Card.Text>
-                        </Container>
-                        <Link tabIndex='-1' to={`/movies/${encodeURIComponent(movie._id)}`}>
-                            <Button 
-                                className='navButton mb-0' variant='primary'>
-                                Details
-                            </Button> 
-                        </Link>
-                        {(!isFavorite)?
-                            (
-                                <Button onClick={addFavoriteMovie} className={isLoading?'buttonLoading mb-0':'navButton mb-0'}>
-                                    Favorite
-                                </Button> 
-                            ):(
-                                <Button onClick={removeFavoriteMovie} className={isLoading?'buttonLoading mb-0':'navButton mb-0'}>
-                                    Unfavorite
-                                </Button> 
-                            )
-                        }
-                    </Card.Body>
-                </Card>
+                <>
+                    {cardSubComponent}
+                    {modalSubComponent}   
+                </>
             )}
         </>
     );

@@ -73,7 +73,7 @@ export const MainView = () => {
             );
         });
 
-    const filterByGenre = (movie) => {
+    /*     const filterByGenre = (movie) => {
         return(         
             <Row>
                 {movies.filter((a) => a.genre === movie.genre && a._id != movie._id)
@@ -96,7 +96,7 @@ export const MainView = () => {
                     )}
             </Row>   
         );
-    };
+    }; */
 
     const filterByName = (input) => {
 
