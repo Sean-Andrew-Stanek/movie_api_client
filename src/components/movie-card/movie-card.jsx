@@ -1,17 +1,15 @@
 import PropTypes from 'prop-types';
-import { Button, Card, Container, Modal} from 'react-bootstrap';
+import { Button, Card, Container, Modal, ModalFooter} from 'react-bootstrap';
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
-import { MovieView } from '../movie-view/movie-view';
-
 import './movie-card.scss';
 
-export const MovieCard = ({movie, movies, filterByGenre, user, updateUser, token, appWebsite, visibilityToggle}) => {
+export const MovieCard = ({movie, filterByGenre, user, updateUser, token, appWebsite, visibilityToggle}) => {
 
     const[isFavorite, setIsFavorite] = useState(user.favoriteMovies.includes(movie._id));
     const [isVisible, setIsVisible] = useState(true);
     const[isLoading, setIsLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    
     
     useEffect(() => {
         setIsFavorite(user.favoriteMovies.includes(movie._id));
@@ -113,14 +111,21 @@ export const MovieCard = ({movie, movies, filterByGenre, user, updateUser, token
     const modalSubComponent = 
         <Modal show={showModal} onHide={handleCloseModal}>
             <Modal.Header closeButton>
-                <Modal.Title>{movie.title}</Modal.Title>
+                <Modal.Title>
+                    <div>{movie.title}</div>
+                    <div>{movie.director}</div>
+                </Modal.Title>
+
             </Modal.Header>
             <Modal.Body>
-                <MovieView 
-                    movies={movies}
-                    filterByGenre={filterByGenre}
-                />
+                <img src={movie.image} />                 
             </Modal.Body>
+            <ModalFooter>
+                <div className='container-fluid'>
+                    <h2>Similar Movies</h2>
+                    {filterByGenre(movie)}
+                </div>
+            </ModalFooter>
 
         </Modal>;
 
@@ -144,7 +149,6 @@ MovieCard.propTypes = {
         director: PropTypes.string,
         image: PropTypes.string.isRequired
     }).isRequired,
-    movies: PropTypes.array.isRequired,
     filterByGenre: PropTypes.func.isRequired,
     user: PropTypes.shape ({
         _id: PropTypes.string.isRequired,

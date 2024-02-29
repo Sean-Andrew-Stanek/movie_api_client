@@ -13271,39 +13271,6 @@ html, #root {
   animation: 1s linear infinite loadingColor;
 }
 
-.navButton {
-  color: #f0f0f0e6;
-  cursor: pointer;
-  background-color: #8264c8;
-  border: 1px solid #000;
-  border-radius: 4px;
-  padding: 4px 10px;
-}
-
-.navButton:hover {
-  background-color: #1450b4;
-}
-
-.cardContainer {
-  color: #f0f0f0;
-  background-color: #0a1428;
-}
-
-.cardContainer:hover {
-  color: #c8c8c8;
-  background-color: #142850;
-}
-
-.mainCardImg {
-  height: 60vh;
-  padding: 3px;
-}
-
-.info {
-  height: 50%;
-  padding: 0;
-}
-
 .bg-transparent-light {
   background-color: #f0f0f01a;
 }

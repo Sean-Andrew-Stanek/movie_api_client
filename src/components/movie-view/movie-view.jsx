@@ -1,6 +1,5 @@
 import { Button, Card, Container} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-import { useParams } from 'react-router';
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -9,10 +8,8 @@ import PropTypes from 'prop-types';
 
 import './movie-view.scss';
 
-export const MovieView = ({movies, filterByGenre}) => {
-    const {movieId} = useParams();
+export const MovieView = ({movie, filterByGenre}) => {
 
-    const movie = movies.find((movie) => movie._id === movieId);
     if(movie == undefined)
     {
         return;
@@ -41,14 +38,18 @@ export const MovieView = ({movies, filterByGenre}) => {
                 </Card.Body>
             </Card>
             <h2>Similar Movies</h2>
-            <div>
-                {filterByGenre(movie)}
-            </div>
+            {filterByGenre(movie)}
         </>
     );
 };
 
 MovieView.propTypes = {
-    movies: PropTypes.array.isRequired,
+    movie: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        genre: PropTypes.string,
+        director: PropTypes.string,
+        image: PropTypes.string.isRequired
+    }).isRequired,
     filterByGenre: PropTypes.func.isRequired
 };

@@ -1,11 +1,9 @@
-//Temporary Data
 import { useState, useEffect } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 
 import { MovieCard } from '../movie-card/movie-card';
-//import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
 import {NavigationBar} from '../navigation-bar/navigation-bar';
@@ -63,21 +61,16 @@ export const MainView = () => {
                 {movies.filter((a) => a.genre === movie.genre && a._id != movie._id)
                     .map((movie) => {
                         return (
-                            <>
-                                {
-                                    <Col className='mb-1' key={movie._id} md={4}>
-                                        <MovieCard 
-                                            movie={movie}
-                                            movies={movies}
-                                            filterByGenre={filterByGenre}
-                                            user={user}
-                                            updateUser={(user)=>{setUser(user);}}
-                                            token={token}
-                                            appWebsite={appWebsite}
-                                        />
-                                    </Col>
-                                }
-                            </>
+                            <Col className='mb-1' key={movie._id} xs={4}>
+                                <MovieCard 
+                                    movie={movie}
+                                    filterByGenre={filterByGenre}
+                                    user={user}
+                                    updateUser={(user)=>{setUser(user);}}
+                                    token={token}
+                                    appWebsite={appWebsite}
+                                />
+                            </Col>
                         );}
                     )}
             </Row>   
@@ -91,7 +84,6 @@ export const MainView = () => {
                 <Col className='mb-5' key={movie._id}  md={3} sm={4} xs={6}>
                     <MovieCard 
                         movie={movie}
-                        movies={movies}
                         filterByGenre={filterByGenre}
                         user={user}
                         updateUser={(user)=>{setUser(user);}}
