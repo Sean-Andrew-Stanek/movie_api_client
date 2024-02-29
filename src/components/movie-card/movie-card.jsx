@@ -6,7 +6,7 @@ import { MovieView } from '../movie-view/movie-view';
 
 import './movie-card.scss';
 
-export const MovieCard = ({movie, user, updateUser, token, appWebsite, visibilityToggle}) => {
+export const MovieCard = ({movie, movies, filterByGenre, user, updateUser, token, appWebsite, visibilityToggle}) => {
 
     const[isFavorite, setIsFavorite] = useState(user.favoriteMovies.includes(movie._id));
     const [isVisible, setIsVisible] = useState(true);
@@ -150,6 +150,8 @@ MovieCard.propTypes = {
         director: PropTypes.string,
         image: PropTypes.string.isRequired
     }).isRequired,
+    movies: PropTypes.array.isRequired,
+    filterByGenre: PropTypes.func.isRequired,
     user: PropTypes.shape ({
         _id: PropTypes.string.isRequired,
         favoriteMovies: PropTypes.array.isRequired    

@@ -57,23 +57,7 @@ export const MainView = () => {
             });
     }, [token]);
 
-    //All of the currently created movieCards
-    const renderedCards =                         
-        displayedMovies.map((movie)=>{
-            return(
-                <Col className='mb-5' key={movie._id}  md={3} sm={4} xs={6}>
-                    <MovieCard 
-                        movie={movie}
-                        user={user}
-                        updateUser={(user)=>{setUser(user);}}
-                        token={token}
-                        appWebsite={appWebsite}
-                    />
-                </Col>                                
-            );
-        });
-
-    /*     const filterByGenre = (movie) => {
+    const filterByGenre = (movie) => {
         return(         
             <Row>
                 {movies.filter((a) => a.genre === movie.genre && a._id != movie._id)
@@ -96,7 +80,25 @@ export const MainView = () => {
                     )}
             </Row>   
         );
-    }; */
+    };
+
+        //All of the currently created movieCards
+        const renderedCards =                         
+        displayedMovies.map((movie)=>{
+            return(
+                <Col className='mb-5' key={movie._id}  md={3} sm={4} xs={6}>
+                    <MovieCard 
+                        movie={movie}
+                        movies={movies}
+                        filterByGenre={filterByGenre}
+                        user={user}
+                        updateUser={(user)=>{setUser(user);}}
+                        token={token}
+                        appWebsite={appWebsite}
+                    />
+                </Col>                                
+            );
+        });
 
     const filterByName = (input) => {
 

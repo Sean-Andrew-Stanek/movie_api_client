@@ -216,11 +216,12 @@ export const ProfileView = ({user, updateUser, token, movies, appWebsite}) => {
                                 <Col className='mb-1' key={movie._id} md={3}>
                                     <MovieCard 
                                         movie={movie}
+                                        movies={movies}
+                                        filterByGenre={filterByGenre}
                                         user={user}
-                                        updateUser={(user)=>{updateUser(user);}}
-                                        token = {token}
+                                        updateUser={updateUser}
+                                        token={token}
                                         appWebsite={appWebsite}
-                                        visibilityToggle={true}
                                     />
                                 </Col>
                             );
