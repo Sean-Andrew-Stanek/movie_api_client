@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import { Button, Card, CardBody, Container, Modal, ModalFooter} from 'react-bootstrap';
+import { Button, Card, CardBody, Container} from 'react-bootstrap';
 import React, {useState, useEffect} from 'react';
 import './movie-card.scss';
+import { MovieModal } from './movie-modal/movie-modal';
 
 export const MovieCard = ({movie, filterByGenre, user, updateUser, token, appWebsite, visibilityToggle}) => {
 
@@ -116,7 +117,7 @@ export const MovieCard = ({movie, filterByGenre, user, updateUser, token, appWeb
             </Card.Footer>
         </Card>;
 
-    const modalSubComponent = 
+    /*     const modalSubComponent = 
         <Modal show={showModal} onHide={handleCloseModal}>
             <Modal.Header closeButton>
                 <Modal.Title>
@@ -137,14 +138,19 @@ export const MovieCard = ({movie, filterByGenre, user, updateUser, token, appWeb
                 </div>
             </ModalFooter>
 
-        </Modal>;
+        </Modal>; */
 
     return (
         <>
             {(isVisible) && (
                 <>
                     {cardSubComponent}
-                    {modalSubComponent}   
+                    <MovieModal
+                        filterByGenre = {filterByGenre}
+                        movie = {movie}
+                        showModal = {showModal}
+                        handleCloseModal = {handleCloseModal}
+                    />   
                 </>
             )}
         </>
