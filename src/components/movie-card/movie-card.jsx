@@ -117,29 +117,6 @@ export const MovieCard = ({movie, filterByGenre, user, updateUser, token, appWeb
             </Card.Footer>
         </Card>;
 
-    /*     const modalSubComponent = 
-        <Modal show={showModal} onHide={handleCloseModal}>
-            <Modal.Header closeButton>
-                <Modal.Title>
-                    <div>{movie.title}</div>
-                    <div>{movie.director}</div>
-                </Modal.Title>
-
-            </Modal.Header>
-            <Modal.Body>
-                <div className='imageHolder'>
-                    <img src={movie.image} />                 
-                </div>
-            </Modal.Body>
-            <ModalFooter>
-                <div className='container-fluid'>
-                    <h2>Similar Movies</h2>
-                    {filterByGenre(movie)}
-                </div>
-            </ModalFooter>
-
-        </Modal>; */
-
     return (
         <>
             {(isVisible) && (

@@ -176,29 +176,6 @@ export const MainView = () => {
             }
         />;
 
-    /*     let routeToMovie = 
-        <Route
-            path='/movies/:movieId'
-            element={
-                <>
-                    {!user ? (
-                        <Navigate to='/login' replace />
-                    ): movies.length === 0 ? (
-                        <Col>No movies have been loaded</Col>
-                    ):(
-                        <Col md={8}>
-                            <MovieView 
-                                movies={movies}
-                                filterByGenre={filterByGenre}
-                            />
-                        </Col>
-                    )}
-                </>
-            }
-        />; */
-
-
-
     let routeToHome = 
         <Route
             path='/'
@@ -223,7 +200,7 @@ export const MainView = () => {
         <>
             <BrowserRouter>
                 {navigationBar}
-                <Row className='justify-content-md-center mainRow'> 
+                <Row className='justify-content-md-center bg-mainview-primary mt-3'> 
                     <Routes>
                         {routeToSignup}
                         {routeToLogin}

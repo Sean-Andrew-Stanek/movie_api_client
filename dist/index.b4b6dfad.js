@@ -28391,26 +28391,7 @@ const MainView = ()=>{
         lineNumber: 157,
         columnNumber: 9
     }, undefined);
-    /*     let routeToMovie = 
-        <Route
-            path='/movies/:movieId'
-            element={
-                <>
-                    {!user ? (
-                        <Navigate to='/login' replace />
-                    ): movies.length === 0 ? (
-                        <Col>No movies have been loaded</Col>
-                    ):(
-                        <Col md={8}>
-                            <MovieView 
-                                movies={movies}
-                                filterByGenre={filterByGenre}
-                            />
-                        </Col>
-                    )}
-                </>
-            }
-        />; */ let routeToHome = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
+    let routeToHome = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
         path: "/",
         element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
             children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
@@ -28423,7 +28404,7 @@ const MainView = ()=>{
         }, void 0, false)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 203,
+        lineNumber: 180,
         columnNumber: 9
     }, undefined);
     let returnCode = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
@@ -28431,7 +28412,7 @@ const MainView = ()=>{
             children: [
                 navigationBar,
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
-                    className: "justify-content-md-center mainRow",
+                    className: "justify-content-md-center bg-mainview-primary mt-3",
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Routes), {
                         children: [
                             routeToSignup,
@@ -28441,18 +28422,18 @@ const MainView = ()=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 227,
+                        lineNumber: 204,
                         columnNumber: 21
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 226,
+                    lineNumber: 203,
                     columnNumber: 17
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 224,
+            lineNumber: 201,
             columnNumber: 13
         }, undefined)
     }, void 0, false);
@@ -34981,28 +34962,7 @@ const MovieCard = ({ movie, filterByGenre, user, updateUser, token, appWebsite, 
         lineNumber: 91,
         columnNumber: 9
     }, undefined);
-    /*     const modalSubComponent = 
-        <Modal show={showModal} onHide={handleCloseModal}>
-            <Modal.Header closeButton>
-                <Modal.Title>
-                    <div>{movie.title}</div>
-                    <div>{movie.director}</div>
-                </Modal.Title>
-
-            </Modal.Header>
-            <Modal.Body>
-                <div className='imageHolder'>
-                    <img src={movie.image} />                 
-                </div>
-            </Modal.Body>
-            <ModalFooter>
-                <div className='container-fluid'>
-                    <h2>Similar Movies</h2>
-                    {filterByGenre(movie)}
-                </div>
-            </ModalFooter>
-
-        </Modal>; */ return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: isVisible && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
             children: [
                 cardSubComponent,
@@ -35013,7 +34973,7 @@ const MovieCard = ({ movie, filterByGenre, user, updateUser, token, appWebsite, 
                     handleCloseModal: handleCloseModal
                 }, void 0, false, {
                     fileName: "src/components/movie-card/movie-card.jsx",
-                    lineNumber: 148,
+                    lineNumber: 125,
                     columnNumber: 21
                 }, undefined)
             ]
@@ -48065,61 +48025,59 @@ var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
+var _movieModalScss = require("./movie-modal.scss");
 const MovieModal = ({ filterByGenre, movie, showModal, handleCloseModal })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal), {
         show: showModal,
         onHide: handleCloseModal,
+        dialogClassName: "movie-modal border-white",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Header, {
                 closeButton: true,
+                className: "bg-mainview-primary",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Title, {
                     children: [
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                             children: movie.title
                         }, void 0, false, {
                             fileName: "src/components/movie-card/movie-modal/movie-modal.jsx",
-                            lineNumber: 11,
+                            lineNumber: 12,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                             children: movie.director
                         }, void 0, false, {
                             fileName: "src/components/movie-card/movie-modal/movie-modal.jsx",
-                            lineNumber: 12,
+                            lineNumber: 13,
                             columnNumber: 21
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/movie-card/movie-modal/movie-modal.jsx",
-                    lineNumber: 10,
+                    lineNumber: 11,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-modal/movie-modal.jsx",
-                lineNumber: 9,
+                lineNumber: 10,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Body, {
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                    className: "imageHolder",
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                        src: movie.image
-                    }, void 0, false, {
-                        fileName: "src/components/movie-card/movie-modal/movie-modal.jsx",
-                        lineNumber: 18,
-                        columnNumber: 21
-                    }, undefined)
+                className: "bg-mainview-primary",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                    src: movie.image
                 }, void 0, false, {
                     fileName: "src/components/movie-card/movie-modal/movie-modal.jsx",
-                    lineNumber: 17,
+                    lineNumber: 18,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-modal/movie-modal.jsx",
-                lineNumber: 16,
+                lineNumber: 17,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
+                className: "bg-mainview-primary",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                     className: "container-fluid",
                     children: [
@@ -48127,25 +48085,25 @@ const MovieModal = ({ filterByGenre, movie, showModal, handleCloseModal })=>{
                             children: "Similar Movies"
                         }, void 0, false, {
                             fileName: "src/components/movie-card/movie-modal/movie-modal.jsx",
-                            lineNumber: 23,
+                            lineNumber: 22,
                             columnNumber: 21
                         }, undefined),
                         filterByGenre(movie)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/movie-card/movie-modal/movie-modal.jsx",
-                    lineNumber: 22,
+                    lineNumber: 21,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-modal/movie-modal.jsx",
-                lineNumber: 21,
+                lineNumber: 20,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/movie-card/movie-modal/movie-modal.jsx",
-        lineNumber: 8,
+        lineNumber: 9,
         columnNumber: 9
     }, undefined);
 };
@@ -48170,7 +48128,7 @@ $RefreshReg$(_c, "MovieModal");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","prop-types":"7wKI2","react":"21dqq","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9YtA0":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","prop-types":"7wKI2","react":"21dqq","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./movie-modal.scss":"5tufm"}],"5tufm":[function() {},{}],"9YtA0":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$9fee = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -48635,7 +48593,7 @@ const NavigationBar = ({ user, filterByName, onLoggedOut })=>{
                 },
                 as: (0, _reactRouterDom.Link),
                 to: "/",
-                children: "MovieAPI Demo"
+                children: "MovieAPI Client - React Version"
             }, void 0, false, {
                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
                 lineNumber: 25,

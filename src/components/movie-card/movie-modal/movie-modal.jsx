@@ -1,24 +1,23 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Modal} from 'react-bootstrap';
+import './movie-modal.scss';
 
 export const MovieModal = ({filterByGenre, movie, showModal, handleCloseModal}) => {
 
     return (
-        <Modal show={showModal} onHide={handleCloseModal}>
-            <Modal.Header closeButton>
+        <Modal show={showModal} onHide={handleCloseModal} dialogClassName='movie-modal border-white' >
+            <Modal.Header closeButton className='bg-mainview-primary'>
                 <Modal.Title>
                     <div>{movie.title}</div>
                     <div>{movie.director}</div>
                 </Modal.Title>
 
             </Modal.Header>
-            <Modal.Body>
-                <div className='imageHolder'>
-                    <img src={movie.image} />                 
-                </div>
+            <Modal.Body className='bg-mainview-primary'>
+                <img src={movie.image} />                 
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer className='bg-mainview-primary'>
                 <div className='container-fluid'>
                     <h2>Similar Movies</h2>
                     {filterByGenre(movie)}

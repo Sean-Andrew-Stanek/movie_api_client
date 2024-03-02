@@ -13230,10 +13230,6 @@ html, #root {
   transition: border .5s;
 }
 
-.modal-dialog {
-  background-color: 20, 80, 180, 1;
-}
-
 .cardContainer {
   color: #f0f0f0;
   background-color: #0a1428;
@@ -13307,6 +13303,31 @@ html, #root {
 .buttonLoading {
   background-color: #1450b4;
   animation: 1s linear infinite loadingColor;
+}
+
+.bg-mainview-primary {
+  background-color: #0a0a1e;
+}
+
+.border-white {
+  border: 1px solid #fff;
+  border-radius: 2px;
+}
+
+.movie-modal {
+  color: #fff;
+  max-width: 80%;
+  display: flex;
+}
+
+.modal-body {
+  justify-content: center;
+  height: 50vh;
+  display: flex;
+}
+
+.modal-body img {
+  height: 95%;
 }
 
 .bg-transparent-light {

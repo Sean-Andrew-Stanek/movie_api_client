@@ -1,0 +1,24 @@
+.bg-mainview-primary {
+    background-color: rgba(10, 10, 30, 1);
+}
+
+.border-white {
+    border: white 1px solid;
+    border-radius: 2px;
+}
+
+.movie-modal {
+    color: white;
+    max-width: 80%;
+    display:flex;
+}
+
+.modal-body {
+    display: flex;
+    justify-content: center;
+    height: 50vh;
+}
+
+.modal-body img {
+    height: 95%;
+}

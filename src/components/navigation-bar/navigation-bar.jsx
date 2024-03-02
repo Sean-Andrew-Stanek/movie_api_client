@@ -23,7 +23,7 @@ export const NavigationBar = ({user, filterByName, onLoggedOut}) => {
     return (
         <Navbar className='bg-transparent-light' expand='lg'>
             <Navbar.Brand style={{fontSize:'1.5rem'}} as={Link} to='/'>
-                MovieAPI Demo
+                MovieAPI Client - React Version
             </Navbar.Brand>
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
