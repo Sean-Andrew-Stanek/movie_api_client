@@ -62,7 +62,7 @@ export const MainView = () => {
                     .map((movie) => {
                         return (
                             <Col className='mb-1' key={movie._id} xs={4}>
-                                <MovieCard 
+                                <MovieCard
                                     movie={movie}
                                     filterByGenre={filterByGenre}
                                     user={user}

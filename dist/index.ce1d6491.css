@@ -13212,45 +13212,82 @@ html, #root {
   color: #4682b4;
 }
 
-.navButton {
+.movieCardButton {
   color: #f0f0f0e6;
   cursor: pointer;
   background-color: #8264c8;
   border: 2px solid #000;
-  border-radius: 1px;
+  border-radius: 10px;
+  width: 40%;
+  height: auto;
   padding: 4px 10px;
+  font-size: .8rem;
 }
 
-.navButton:hover {
+.movieCardButton:hover {
   background-color: #1450b4;
   border: 2px solid #000;
   transition: border .5s;
+}
+
+.modal-dialog {
+  background-color: 20, 80, 180, 1;
 }
 
 .cardContainer {
   color: #f0f0f0;
   background-color: #0a1428;
   border: 2px solid #000;
+  height: 500px;
+  display: flex;
+  overflow: hidden;
 }
 
 .cardContainer:hover {
   color: #c8c8c8;
   background-color: #142850;
-  transition: transform .5s, background-color .5s;
-  transform: scale(1.01);
+  transition: background-color .5s;
 }
 
 .cardImg {
   box-sizing: border-box;
   border: 2px solid #000;
-  width: 97%;
-  height: auto;
+  width: auto;
+  max-width: 97%;
+  max-height: 100%;
   margin: 3px auto;
 }
 
-.info {
-  height: 50%;
+.card-body {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+  display: flex;
+}
+
+.card-footer {
+  background-color: #ffffff1a;
+  border: 1px solid #000;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 30%;
+  padding: 5px;
+  display: flex;
+}
+
+.buttonRow {
+  justify-content: space-around;
   padding: 0;
+  display: flex;
+}
+
+.info {
+  flex-direction: column;
+  height: 80%;
+  padding: 10px;
+  display: flex;
 }
 
 @keyframes loadingColor {

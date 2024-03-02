@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Button, Card, Container, Modal, ModalFooter} from 'react-bootstrap';
+import { Button, Card, CardBody, Container, Modal, ModalFooter} from 'react-bootstrap';
 import React, {useState, useEffect} from 'react';
 import './movie-card.scss';
 
@@ -87,28 +87,33 @@ export const MovieCard = ({movie, filterByGenre, user, updateUser, token, appWeb
     };
 
     const cardSubComponent =
-        <Card className='h-100 cardContainer'>
-            <Card.Img variant='top' className='cardImg' src={movie.image} onClick={handleOpenModal}/>
-            <Card.Body className='pb-1'>
-                <Container className='info mb-4'>
+        <Card className='cardContainer'>
+            <CardBody>
+                <Card.Img className='cardImg' src={movie.image} onClick={handleOpenModal}/>   
+            </CardBody>
+            <Card.Footer className='pb-1'>
+                <Container className='info'>
                     <Card.Title className='title'>{movie.title}</Card.Title>
                     <Card.Text className='genre'>{movie.genre}</Card.Text>
                 </Container>
-                <Button onClick={handleOpenModal} className='navButton'>
-                    Details
-                </Button>
-                {(!isFavorite)?
-                    (
-                        <Button onClick={addFavoriteMovie} className={isLoading?'buttonLoading mb-0':'navButton mb-0'}>
-                            Favorite
-                        </Button> 
-                    ):(
-                        <Button onClick={removeFavoriteMovie} className={isLoading?'buttonLoading mb-0':'navButton mb-0'}>
-                            Unfavorite
-                        </Button> 
-                    )
-                }
-            </Card.Body>
+                <Container className='buttonRow'>
+                    <Button onClick={handleOpenModal} className='movieCardButton'>
+                        Details
+                    </Button>
+                    {(!isFavorite)?
+                        (
+                            <Button onClick={addFavoriteMovie} className={isLoading?'movieCardButton buttonLoading mb-0':'movieCardButton mb-0'}>
+                                Favorite
+                            </Button> 
+                        ):(
+                            <Button onClick={removeFavoriteMovie} className={isLoading?'movieCardButton buttonLoading mb-0':'movieCardButton mb-0'}>
+                                Unfavorite
+                            </Button> 
+                        )
+                    }
+                </Container>
+
+            </Card.Footer>
         </Card>;
 
     const modalSubComponent = 
@@ -121,7 +126,9 @@ export const MovieCard = ({movie, filterByGenre, user, updateUser, token, appWeb
 
             </Modal.Header>
             <Modal.Body>
-                <img src={movie.image} />                 
+                <div className='imageHolder'>
+                    <img src={movie.image} />                 
+                </div>
             </Modal.Body>
             <ModalFooter>
                 <div className='container-fluid'>
